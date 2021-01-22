@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contact_mainlayout"
+        android:theme="@style/AppTheme"
+        tools:context=".Signup_MobileNumber_and_Image"
+        android:background="#ffffff">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MobileNumber_appbarlayout"
+            android:background="@color/colorPrimary">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MobileNumber_toolbar"
+                app:title="MobileNumber"
+                app:titleTextColor="#fff">
+                <ProgressBar
+                    android:id="@+id/mobilenumber_progressbar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:indeterminateTint="#fff"
+                    android:visibility="gone" />
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="120dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MobileNumber_relative1"
+                android:background="@drawable/backgroundcolor">
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/MobileNumber_progressbar"
+                    android:layout_alignParentRight="true"
+                    android:indeterminateTint="#fff"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MobileNumber_textview1"
+                    android:text="Please Enter Mobile Number"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:shadowColor="#ae3465"
+                    android:shadowDx="-2"
+                    android:shadowDy="-2"
+                    android:shadowRadius="1" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MobileNumber_relative2"
+                android:layout_below="@id/MobileNumber_relative1">
+
+                <com.hbb20.CountryCodePicker
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/MobileNumber_countrycode"
+                    app:ccp_countryPreference="IN,US,NZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ccp_showFullName="true"
+                    app:ccp_showPhoneCode="true"
+                    app:ccp_showNameCode="false"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/MobileNumber_relative3"
+                android:layout_below="@id/MobileNumber_relative2"
+                android:layout_marginTop="20dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MobileNumber_textinput1"
+                    android:layout_margin="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/MobileNumber_number"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:hint="Mobile Nimber"
+                        android:textSize="20dp"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_call_black_24dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MobileNumber_choosebutton"
+                    android:layout_below="@id/MobileNumber_textinput1"
+                    android:layout_marginHorizontal="80dp"
+                    android:text="Choose Image"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginTop="70dp"
+                    android:visibility="visible"
+                    android:background="@drawable/clickable_button"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/MobileNumber_chooseimage"
+                    android:layout_below="@id/MobileNumber_textinput1"
+                    android:layout_marginHorizontal="70dp"
+                    android:src="@mipmap/adventure"
+                    android:visibility="gone"
+                    android:background="@drawable/border"
+                    android:paddingVertical="20dp"
+                    android:paddingHorizontal="30dp"/>
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/MobileNumber_cancel"
+                    android:layout_below="@id/MobileNumber_textinput1"
+                   android:layout_marginRight="75dp"
+                    android:textColor="@color/colorPrimary"
+                   android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:drawableRight="@drawable/ic_highlight_off_black_24dp"
+                    android:background="@drawable/flag_transparent"
+                    android:backgroundTint="@color/colorPrimary"
+                    />
+
+
+                <com.ncorti.slidetoact.SlideToActView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MobileNumber_slidingButton"
+                    android:layout_below="@id/MobileNumber_textinput1"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="220dp"
+                    android:layout_marginBottom="10dp"
+                    app:inner_color="#fff"
+                    app:outer_color="@color/colorPrimary"
+                    app:text_color="#ffffff"
+                    app:text="Submit"
+                    app:text_size="30dp"
+                    app:slider_icon_color="@color/colorPrimary"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/MobileNumber_slidingButton"
+                    android:id="@+id/MobileNumber_skip"
+                    android:text="skip"
+                    android:textAllCaps="false"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/MobileNumber_imgrelative"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/circle">
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/MobileNumber_image"
+            android:src="@mipmap/adventure"
+            android:layout_marginTop="69dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</ScrollView>

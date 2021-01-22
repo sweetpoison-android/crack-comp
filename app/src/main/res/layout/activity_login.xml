@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contact_mainlayout"
+        android:theme="@style/AppTheme"
+        tools:context=".Login"
+        android:background="#ffffff">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_appbarlayout"
+            android:background="@color/colorPrimary">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/login_toolbar"
+                app:title="Login"
+                app:titleTextColor="#fff">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="100dp"
+            android:layout_marginHorizontal="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Login_relative1"
+                android:background="@drawable/backgroundcolor">
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/login_progressbar"
+                    android:layout_alignParentRight="true"
+                    android:indeterminateTint="#fff"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Login_textview1"
+                    android:text="Please Enter your Details"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:shadowColor="#DA5959"
+                    android:shadowDx="-2"
+                    android:shadowDy="-2"
+                    android:shadowRadius="1" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Login_relative1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Login_textinput1"
+                    android:layout_margin="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Login_email"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:hint="Email"
+                        android:textSize="20dp"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_email_black_24dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Login_textinput2"
+                    android:layout_below="@id/Login_textinput1"
+                    android:layout_margin="10dp"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Login_password"
+                        android:ems="10"
+                        android:inputType="textPassword"
+                        android:hint="Password"
+                        android:textSize="20dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_lock_black_24dp"
+                        android:drawableLeft="@drawable/ic_lock_black_24dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Login_textinput2"
+                    android:id="@+id/login_forgetpassword"
+                    android:layout_alignParentRight="true"
+                    android:text="forget password"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginRight="20dp"
+                    android:textAllCaps="false"
+                    android:textSize="20dp"/>
+
+
+                <com.ncorti.slidetoact.SlideToActView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Login_slidingButton"
+                    android:layout_below="@id/login_forgetpassword"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:inner_color="#fff"
+                    app:outer_color="@color/colorPrimary"
+                    app:text_color="#ffffff"
+                    app:text="Slide for Login"
+                    app:text_size="25dp"
+                    app:slider_icon_color="@color/colorPrimary" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/Login_slidingButton"
+                    android:id="@+id/login_register"
+                    android:text="Register"
+                    android:textAllCaps="false"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/Login_imgrelative"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/circle">
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/Login_image"
+            android:src="@mipmap/adventure"
+            android:layout_marginTop="59dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</ScrollView>

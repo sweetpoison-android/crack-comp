@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="atlair.edu.crackcomp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/crackcomp_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/crackcomp_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".Update_ProfileImage" />
+        <activity android:name=".Account_Detail" />
+        <activity android:name=".Result" />
+        <activity android:name=".GiveTest_CompExam" />
+        <activity
+            android:name=".ShowQuestionComp"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".Upload_question"
+            android:configChanges="screenSize|orientation" />
+        <activity
+            android:name=".Update_Question"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".AllUser_Activity" />
+        <activity android:name=".ImageShowInFullScreen" />
+        <activity android:name=".Update_MobileNumber" />
+        <activity android:name=".Signup_MobileNumber_and_Image" />
+        <activity
+            android:name=".ForgetPassword"
+            android:label="Forget Password" />
+        <activity
+            android:name=".Login"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".Signup" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".Token_generator">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

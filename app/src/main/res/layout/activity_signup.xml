@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:isScrollContainer="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_mainlayout"
+    android:theme="@style/AppTheme"
+    tools:context=".Signup"
+    android:background="#ffffff"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_appbarlayout"
+            android:background="@color/colorPrimary">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup_toolbar"
+                app:title="Signup"
+                app:titleTextColor="#fff">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border"
+    android:layout_marginTop="100dp"
+    android:layout_marginHorizontal="10dp">
+
+
+    <RelativeLayout
+        android:id="@+id/signup_relative1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backgroundcolor">
+
+        <ProgressBar
+            android:id="@+id/signup_progressbar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:indeterminateTint="#fff"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/signup_textview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:shadowColor="#ae3465"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="1"
+            android:text="Please Enter your Details"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/signup_relative1">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signup_textinput1"
+        android:layout_margin="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_name"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Name"
+            android:textSize="20sp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/ic_email_black_24dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_textinput2"
+            android:layout_below="@id/signup_textinput1"
+            android:layout_margin="10dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup_email"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Email"
+                android:textSize="20dp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_email_black_24dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_textinput3"
+            android:layout_below="@id/signup_textinput2"
+            android:layout_margin="10dp"
+            app:passwordToggleEnabled="true">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup_password"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Password"
+                android:textSize="20dp"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:drawableLeft="@drawable/ic_lock_black_24dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.ncorti.slidetoact.SlideToActView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signup_slidingButton"
+            android:layout_below="@+id/signup_textinput3"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="80dp"
+            app:inner_color="#fff"
+            app:outer_color="@color/colorPrimary"
+            app:text_color="#ffffff"
+            app:text="Slide for Register"
+            app:text_size="25dp"
+            app:slider_icon_color="@color/colorPrimary"/>
+
+</RelativeLayout>
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/signup_imgrelative"
+       android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/circle">
+
+    </RelativeLayout>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/signup_image"
+        android:src="@mipmap/adventure"
+        android:layout_marginTop="59dp"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
+    </ScrollView>

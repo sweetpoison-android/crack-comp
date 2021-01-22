@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "939031689413",
+    "firebase_url": "https://crack-comp.firebaseio.com",
+    "project_id": "crack-comp",
+    "storage_bucket": "crack-comp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939031689413:android:2415b77189b0d3594698ac",
+        "android_client_info": {
+          "package_name": "atlair.edu.crackcomp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939031689413-7a9iebn4m3vhksmha1o3dusgfs0f47l1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_R4zkQIi0bHLUTzez9ld-oEnqb8WLszw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939031689413-7a9iebn4m3vhksmha1o3dusgfs0f47l1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/updatemobilenumber_mainlayout"
+        android:theme="@style/AppTheme"
+        tools:context=".Update_MobileNumber"
+        android:background="#ffffff">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/updatemobilenumber_appbarlayout"
+            android:background="@color/colorPrimary">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatemobilenumber_toolbar"
+                app:title="Update Number"
+                app:titleTextColor="#fff">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="150dp"
+            android:layout_marginHorizontal="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatemobilenumber_relative1"
+                android:background="@drawable/backgroundcolor">
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/updatemobilenumber_progressbar"
+                    android:layout_alignParentRight="true"
+                    android:indeterminateTint="#fff"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updatemobilenumber_textview1"
+                    android:text="Update Mobile Numeber"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:shadowColor="#ae3465"
+                    android:shadowDx="-2"
+                    android:shadowDy="-2"
+                    android:shadowRadius="1" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatemobilenumber_relative2"
+                android:layout_below="@id/updatemobilenumber_relative1">
+
+                <com.hbb20.CountryCodePicker
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/updatemobilenumber_countrycode"
+                    app:ccp_countryPreference="IN,US,NZ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ccp_showFullName="true"
+                    app:ccp_showPhoneCode="true"
+                    app:ccp_showNameCode="false"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatemobilenumber_relative3"
+                android:layout_below="@id/updatemobilenumber_relative2"
+                android:layout_marginTop="100dp"
+                android:paddingBottom="150dp">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updatemobilenumber_textinput1"
+                    android:layout_margin="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/updatemobilenumber_number"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:hint="Enter Mobile Number"
+                        android:textSize="20dp"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/ic_call_black_24dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.ncorti.slidetoact.SlideToActView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updatemobilenumber_slidingButton"
+                    android:layout_below="@id/updatemobilenumber_textinput1"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:inner_color="#fff"
+                    app:outer_color="@color/colorPrimary"
+                    app:text_color="#ffffff"
+                    app:text="Submit"
+                    app:text_size="30dp"
+                    app:slider_icon_color="@color/colorPrimary"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/updatemobilenumber_imgrelative"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/circle">
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/updatemobilenumber_image"
+            android:src="@mipmap/adventure"
+            android:layout_marginTop="109dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    </ScrollView>

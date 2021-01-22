@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/updateprofileimage_relativelayout"
+        android:theme="@style/AppTheme"
+        tools:context=".Signup_MobileNumber_and_Image"
+        android:background="#ffffff">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateprofileimage_appbarlayout"
+            android:background="@color/colorPrimary">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/updateprofileimage_toolbar"
+                app:title="Uplaod Image"
+                app:titleTextColor="#fff">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:layout_marginTop="120dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/updateprofileimage_relative1"
+                android:background="@drawable/backgroundcolor">
+                <ProgressBar
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/updateprofileimage_progressbar"
+                    android:layout_alignParentRight="true"
+                    android:indeterminateTint="#fff"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updateprofileimage_textview1"
+                    android:text="Please Upload Profile Picture"
+                    android:textColor="#fff"
+                    android:textSize="25dp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginBottom="10dp"
+                    android:shadowColor="#ae3465"
+                    android:shadowDx="-2"
+                    android:shadowDy="-2"
+                    android:shadowRadius="1" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/MobileNumber_relative3"
+                android:layout_below="@id/updateprofileimage_relative1"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="150dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updateprofileimage_choosebutton"
+                    android:layout_marginHorizontal="80dp"
+                    android:text="Choose Image"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:layout_marginTop="70dp"
+                    android:visibility="visible"
+                    android:background="@drawable/clickable_button"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/updateprofileimage_imageview"
+                    android:layout_below="@id/updateprofileimage_choosebutton"
+                    android:layout_marginHorizontal="70dp"
+                    android:src="@mipmap/adventure"
+                    android:visibility="gone"
+                    android:background="@drawable/border"
+                    android:paddingVertical="20dp"
+                    android:paddingHorizontal="30dp"/>
+                <Button
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/updateprofileimage_cancel"
+                    android:layout_below="@id/updateprofileimage_choosebutton"
+                    android:layout_marginRight="75dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentRight="true"
+                    android:visibility="gone"
+                    android:drawableRight="@drawable/ic_highlight_off_black_24dp"
+                    android:background="@drawable/flag_transparent"
+                    android:backgroundTint="@color/colorPrimary"
+                    />
+
+
+                <com.ncorti.slidetoact.SlideToActView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/updateprofileimage_slidingButton"
+                    android:layout_below="@id/updateprofileimage_imageview"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="50dp"
+                    app:inner_color="#fff"
+                    app:outer_color="@color/colorPrimary"
+                    app:text_color="#ffffff"
+                    app:text="Submit"
+                    app:text_size="30dp"
+                    app:slider_icon_color="@color/colorPrimary"
+                   />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/updateprofileimage_imgrelative"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/circle">
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/updateprofileimage_image"
+            android:src="@mipmap/adventure"
+            android:layout_marginTop="69dp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+</ScrollView>

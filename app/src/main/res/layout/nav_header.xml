@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/nav_header_constraintlayout"
+    android:background="@color/colorPrimary">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/nav_header_imageview"
+        android:src="@mipmap/adventure"
+        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:transitionName="image_transition" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nav_header_textview1"
+        android:layout_below="@id/nav_header_imageview"
+        android:text="choose option"
+        android:textSize="25sp"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif"/>
+
+</RelativeLayout>
