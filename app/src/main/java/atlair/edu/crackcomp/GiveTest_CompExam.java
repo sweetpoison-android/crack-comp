@@ -252,7 +252,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                 randomnumber=new Random().nextInt(ar.size());
 
                             }
-                            Toast.makeText(GiveTest_CompExam.this, Integer.toString(randomnumber), Toast.LENGTH_SHORT).show();
+
                             ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(randomnumber)).addValueEventListener(new ValueEventListener() {
 
                                 @Override
@@ -983,7 +983,6 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                             {
                                 randomnumber=new Random().nextInt(ar.size());
                             }
-                            Toast.makeText(GiveTest_CompExam.this, Integer.toString(randomnumber), Toast.LENGTH_SHORT).show();
 
 
                             ref.child("Question").child(fuser.getUid()).child(compmain).child(ar.get(randomnumber)).addValueEventListener(new ValueEventListener() {

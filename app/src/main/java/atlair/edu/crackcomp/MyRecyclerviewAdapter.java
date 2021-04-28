@@ -1,8 +1,11 @@
 package atlair.edu.crackcomp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -183,7 +186,7 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
 itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Toast.makeText(con, Integer.toString(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(con, Integer.toString(getAdapterPosition()), Toast.LENGTH_SHORT).show();
     }
 });
 
@@ -196,42 +199,8 @@ itemView.setOnClickListener(new View.OnClickListener() {
                     contextMenu.add(0,view.getId(),0,"delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            final DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
-                             Query delete = null;
 
-                            if(compmain.equalsIgnoreCase("Competative Exam")) {
-
-                                delete = ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
-                            }
-                           else if(compmain.equalsIgnoreCase("Computer Language")) {
-
-                                delete = ref.child("Question").child(fuser.getUid()).child(compmain).child(language).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
-                            }
-                            if(compmain.equalsIgnoreCase("Current Affairs") || compmain.equalsIgnoreCase("Other Question")) {
-
-                                delete = ref.child("Question").child(fuser.getUid()).child(compmain).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
-                            }
-                                delete.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot ds : dataSnapshot.getChildren())
-                                        {
-                                            ds.getRef().removeValue();
-                                            Toast.makeText(con,ar.get(getAdapterPosition()).getQuestion()+"\t deleted", Toast.LENGTH_SHORT).show();
-
-                                            ar.remove(getAdapterPosition());
-                                            notifyItemRemoved(getAdapterPosition());
-
-                                        }
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-                            
+                            deleteQuestion();
                             return true;
                         }
                     });
@@ -251,32 +220,25 @@ itemView.setOnClickListener(new View.OnClickListener() {
                     contextMenu.add(0,view.getId(),0,"Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-//                            BitmapDrawable drawable=(BitmapDrawable)con.getResources().getDrawable(R.drawable.adventure);
-//                            Bitmap bitmap=drawable.getBitmap();
-//                            String s= MediaStore.Images.Media.insertImage(con.getContentResolver(),bitmap,"whatsapp",null);
-//                            Uri uri= Uri.parse(s);
-//                            Intent in=new Intent(Intent.ACTION_SEND);
-//                            //in.setPackage("com.whatsapp");
-//                            in.setType("image/*");
-//                            in.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                            in.putExtra(Intent.EXTRA_STREAM,uri);
-//                            in.putExtra(Intent.EXTRA_TEXT,ar.get(getAdapterPosition()).getQuestion()+"\n"+ar.get(getAdapterPosition()).getAns());
-//                            con.startActivity(in);
 
-
-                            Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.adventure);
-                            String imgBitmapPath = MediaStore.Images.Media.insertImage(con.getContentResolver(),imgBitmap,"title",null);
+                            Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.questionshare);
+                            String imgBitmapPath = MediaStore.Images.Media.insertImage(con.getContentResolver(),imgBitmap,"title"+ System.currentTimeMillis(),null);
                             Uri imgBitmapUri = Uri.parse(imgBitmapPath);
 
-                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                            shareIntent.setPackage("com.whatsapp");
-                            shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
-                            shareIntent.setType("image/*");
-                            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            shareIntent.putExtra(Intent.EXTRA_TEXT," Q :- "+ ar.get(getAdapterPosition()).getQuestion()+"\n"+" Ans :- "+ar.get(getAdapterPosition()).getAns());
-                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Crack Comp");
-                            con.startActivity(Intent.createChooser(shareIntent, "Share this"));
+                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                //                shareIntent.setPackage("com.whatsapp");  // for only on whatsapp sharing
+                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
+                                shareIntent.setType("image/*");
+                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                shareIntent.putExtra(Intent.EXTRA_TEXT," Q :- "+ ar.get(getAdapterPosition()).getQuestion()+"\n" +
+                                        "A. " + ar.get(getAdapterPosition()).getOption1() + "\n" +
+                                        "B. " + ar.get(getAdapterPosition()).getOption2() + "\n" +
+                                        "C. " + ar.get(getAdapterPosition()).getOption3() + "\n" +
+                                        "D. " + ar.get(getAdapterPosition()).getOption4() + "\n" +
+                                        " Ans :- "+ar.get(getAdapterPosition()).getAns());
+                                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Crack Comp");
+                                con.startActivity(Intent.createChooser(shareIntent, "Share this"));
 
                             return true;
                         }
@@ -285,6 +247,68 @@ itemView.setOnClickListener(new View.OnClickListener() {
                 }
             });
 
+
+        }
+
+        public void deleteQuestion()
+        {
+
+            AlertDialog.Builder bld=new AlertDialog.Builder(con);
+            bld.setTitle("Delete Question");
+            bld.setIcon(R.mipmap.adventure);
+
+            bld.setMessage("Are you sure, you want to delete this Question ?");
+            bld.setCancelable(false);
+            bld.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final DatabaseReference ref= FirebaseDatabase.getInstance().getReference();
+                    Query delete = null;
+
+                    if(compmain.equalsIgnoreCase("Competative Exam")) {
+
+                        delete = ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
+                    }
+                    else if(compmain.equalsIgnoreCase("Computer Language")) {
+
+                        delete = ref.child("Question").child(fuser.getUid()).child(compmain).child(language).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
+                    }
+                    if(compmain.equalsIgnoreCase("Current Affairs") || compmain.equalsIgnoreCase("Other Question")) {
+
+                        delete = ref.child("Question").child(fuser.getUid()).child(compmain).orderByChild("question").equalTo(ar.get(getAdapterPosition()).getQuestion());
+                    }
+                    delete.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds : dataSnapshot.getChildren())
+                            {
+                                ds.getRef().removeValue();
+                                Toast.makeText(con,ar.get(getAdapterPosition()).getQuestion()+"\t deleted", Toast.LENGTH_SHORT).show();
+
+                                ar.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
+
+            bld.setNeutralButton("Not now", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            final AlertDialog dialog=bld.create();
+            dialog.show();
 
         }
     }

@@ -37,8 +37,8 @@ public class Token_generator extends FirebaseInstanceIdService {
         NotificationManager mngr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder bld = new NotificationCompat.Builder(this);
-        bld.setSmallIcon(R.drawable.adventure);
-        bld.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.adventure));
+        bld.setSmallIcon(R.mipmap.adventure);
+        bld.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.adventure));
         bld.setContentTitle("Welcome");
         bld.setStyle(new NotificationCompat.BigTextStyle().bigText(token));
         bld.setContentText("Expand for Token");

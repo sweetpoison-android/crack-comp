@@ -22,7 +22,7 @@
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:id="@+id/main_activity_item_imageview"
-                android:src="@drawable/adventure"/>
+                android:src="@mipmap/adventure"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

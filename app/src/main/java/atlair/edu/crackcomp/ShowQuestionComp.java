@@ -233,11 +233,7 @@ public class ShowQuestionComp extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-//        startActivity(new Intent(ShowQuestionComp.this,UserActivity.class));
-//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         new Activity_Dialog_CompExam().show(getSupportFragmentManager(),"xyz");
-
-        //super.onBackPressed();
     }
 
     public void setlist()

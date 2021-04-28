@@ -114,7 +114,7 @@ public class Update_Question extends AppCompatActivity {
             language=shp.getString("language",null);
         }
 
-        tb.setTitle(compexam+"("+subject+")");
+        tb.setTitle("Update Question");
 
         tb.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         tb.setNavigationOnClickListener(new View.OnClickListener() {
@@ -161,7 +161,6 @@ public class Update_Question extends AppCompatActivity {
                Intent in=getIntent();
               String question_position1=in.getStringExtra("question_position");
                reverse = ar.size()-(Integer.parseInt(question_position1))-1;
-               Toast.makeText(Update_Question.this, (question_position1)+Integer.toString(ar.size()), Toast.LENGTH_SHORT).show();
                finalSs.child(ar.get(reverse)).addValueEventListener(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

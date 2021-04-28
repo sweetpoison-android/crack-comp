@@ -20,11 +20,11 @@
         <activity android:name=".Update_ProfileImage" />
         <activity android:name=".Account_Detail" />
         <activity android:name=".Result" />
-        <activity android:name=".GiveTest_CompExam" />
-        <activity
-            android:name=".ShowQuestionComp"
+        <activity android:name=".GiveTest_CompExam"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".ShowQuestionComp" />
         <activity
             android:name=".Upload_question"
             android:configChanges="screenSize|orientation" />
@@ -35,15 +35,21 @@
         <activity android:name=".UserActivity" />
         <activity android:name=".AllUser_Activity" />
         <activity android:name=".ImageShowInFullScreen" />
-        <activity android:name=".Update_MobileNumber" />
-        <activity android:name=".Signup_MobileNumber_and_Image" />
+        <activity android:name=".Update_MobileNumber"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".Signup_MobileNumber_and_Image"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".ForgetPassword"
             android:label="Forget Password" />
         <activity
             android:name=".Login"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".Signup" />
+        <activity android:name=".Signup"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize">

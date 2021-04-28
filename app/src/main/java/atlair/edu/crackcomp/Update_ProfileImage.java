@@ -347,7 +347,7 @@ public class Update_ProfileImage extends AppCompatActivity {
                                                     }
                                                 });
 
-                                                ref.child("Question").child(mAuth.getCurrentUser().getUid()).child("General Question").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                ref.child("Question").child(mAuth.getCurrentUser().getUid()).child("Other Question").addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

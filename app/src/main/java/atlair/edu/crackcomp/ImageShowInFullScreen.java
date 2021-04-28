@@ -36,7 +36,7 @@ public class ImageShowInFullScreen extends AppCompatActivity {
         }
 if (userimg.equalsIgnoreCase("no image"))
 {
-    img.setImageResource(R.drawable.adventure);
+    img.setImageResource(R.mipmap.adventure);
 }
 else
 {

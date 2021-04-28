@@ -17,16 +17,26 @@
             app:title="Result"
             app:titleTextColor="#ffffff"/>
     </com.google.android.material.appbar.AppBarLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/result_appbarlayout">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical">
+
+        <com.razerdp.widget.animatedpieview.AnimatedPieView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_piechart"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/result_textview1"
             android:text="Total Question"
+            android:layout_below="@id/result_piechart"
             android:textColor="@color/colorPrimary"
             android:textSize="30dp"
             android:layout_marginTop="30dp"
@@ -37,7 +47,7 @@
             android:id="@+id/result_textview2"
             android:layout_below="@id/result_textview1"
             android:text="correct"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#AA1FD11F"
             android:textSize="30dp"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"/>
@@ -47,10 +57,10 @@
             android:id="@+id/result_textview3"
             android:layout_below="@id/result_textview2"
             android:text="wrong"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#F44336"
             android:textSize="30dp"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"/>
     </RelativeLayout>
-
+    </ScrollView>
 </RelativeLayout>
