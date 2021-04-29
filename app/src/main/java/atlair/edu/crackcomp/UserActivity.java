@@ -346,8 +346,8 @@ ref.child("Question").child(fuser.getUid()).child("Computer Language").addListen
 
         startActivity(new Intent(UserActivity.this,MainActivity.class));
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+         finish();
 
-        super.onBackPressed();
     }
 
     public void setlist() {

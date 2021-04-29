@@ -297,9 +297,9 @@ int count=1;
 
     @Override
     public void onBackPressed() {
-//        startActivity(new Intent(Upload_question.this,UserActivity.class));
-//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-//        super.onBackPressed();
-        new Activity_Dialog_CompExam().show(getSupportFragmentManager(),"xyz");
+
+            new Activity_Dialog_CompExam().show(getSupportFragmentManager(),"xyz");
+
     }
+
 }

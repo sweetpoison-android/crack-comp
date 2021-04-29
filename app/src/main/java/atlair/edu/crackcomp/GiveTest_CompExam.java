@@ -196,6 +196,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                             in.putExtra("wrong",wrong);
                             startActivity(in);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
                         }
 
                         else if (ar.size() == 1)
@@ -228,6 +229,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                         Intent in=new Intent(Intent.ACTION_MAIN);
                                         in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
                                         startActivity(in);
+                                        finish();
                                     }
                                 });
 
@@ -561,6 +563,7 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                     in.putExtra("wrong",wrong);
                     startActivity(in);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    finish();
                 }
 
                 else if (ar.size() == 1)
@@ -930,7 +933,7 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                             in.putExtra("wrong",wrong);
                             startActivity(in);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                            finish();
                         }
 
                         else if (ar.size() == 1)

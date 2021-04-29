@@ -121,7 +121,10 @@ public class MainDialog extends DialogFragment {
         bld.setNegativeButton("Back", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-             startActivity(new Intent(getActivity(), UserActivity.class));
+                if (getActivity().isFinishing()) {
+                    startActivity(new Intent(getActivity(), UserActivity.class));
+                }
+                else getActivity().finish();
             }
         });
 

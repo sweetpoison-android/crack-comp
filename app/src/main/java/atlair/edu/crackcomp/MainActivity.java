@@ -1,6 +1,7 @@
 package atlair.edu.crackcomp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -44,9 +46,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
@@ -83,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     ArrayList<String> ars = new ArrayList<>();
 
-
     TextView navheader_user;
     CircleImageView navheader_img;
 
@@ -102,16 +108,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
    public static Utils ut = new Utils();
 
-//   SwipeRefreshLayout swipeRefreshLayout;
-
+   AppUpdateManager appUpdateManager;
+   int request_code = 1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        swipeRefreshLayout = findViewById(R.id.mainactivity_swiperefresh);
+       
         dl=findViewById(R.id.main_drawerlayout);
         nv=findViewById(R.id.main_navigationview);
         apb = findViewById(R.id.main_appbarlayout);
@@ -123,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navheader_user=v.findViewById(R.id.nav_header_textview1);
         navheader_img=v.findViewById(R.id.nav_header_imageview);
 
+        In_app_update();
+
+
          ut.getoffline();
 
             tv.setText("Current Affairs Ques");
@@ -132,15 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getWindow().setStatusBarColor(Color.parseColor("#480B72"));
         }
         setSupportActionBar(tb);
-
-//        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                recreate();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
 
 
         ref= FirebaseDatabase.getInstance().getReference();
@@ -156,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                    startActivity(new Intent(MainActivity.this,UserActivity.class));
                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                   finish();
                }
                else return;
             }
@@ -414,8 +414,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Uri imgBitmapUri = Uri.parse(imgBitmapPath);
 
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setPackage("com.whatsapp");      // for only on whatsapp sharing .....
-                shareIntent.setPackage("com.google.android.gm");    // for only on gmail sharing  .....
+               // shareIntent.setPackage("com.whatsapp");      // for only on whatsapp sharing .....
+             //   shareIntent.setPackage("com.google.android.gm");    // for only on gmail sharing  .....
                     shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
                     shareIntent.setType("image/*");
@@ -430,14 +430,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.profile :
 
                  if (fuser != null) {
-                     dl.closeDrawer( GravityCompat.START );
-                     startActivity(new Intent(MainActivity.this, Account_Detail.class));
+                     Intent in = new Intent(MainActivity.this, Account_Detail.class);
+                     startActivity(in);
                      overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                     onDestroy();
+                    finish();
                  }
                  else
                  {
+                     dl.closeDrawer(GravityCompat.START);
                     login_AlertDialog();
+
                  }
 
                 break;
@@ -452,7 +454,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else if(register.getTitle().toString().equalsIgnoreCase("Logout"))
                 {
-                    dl.closeDrawer( GravityCompat.START );
                      custom_Dialog();
 
                 }
@@ -618,6 +619,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
 
             }
         });
@@ -630,6 +632,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         final AlertDialog dialog=bld.create();
+        if (dialog.getWindow() != null)
+        {
+            dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
+        }
         dialog.show();
 
     }
@@ -712,48 +718,83 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void updateApp()
+    public void In_app_update()
     {
-        AppUpdateManager updateManager = AppUpdateManagerFactory.create(this);
-        Task<AppUpdateInfo> appUpdateInfoTask = updateManager.getAppUpdateInfo();
-        appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
             @Override
             public void onSuccess(AppUpdateInfo result) {
-                if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE)
+                if ((result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE)
+                && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE))
                 {
-                    AlertDialog.Builder bld=new AlertDialog.Builder(MainActivity.this);
-                    bld.setTitle("CRACKCOMP");
-                    bld.setIcon(R.mipmap.adventure);
-
-                    bld.setMessage("CRACKCOMP recommends that you update to the latest version for a seamless & enhanced performance of the App");
-                    bld.setCancelable(false);
-                    bld.setPositiveButton("Update Now", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            try {
-                                startActivity(new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=" + getPackageName())));
-
-                            }catch (ActivityNotFoundException e)
-                            {
-                                startActivity(new Intent("android.intent.action.VIEW", Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
-
-                            }
-                        }
-                    });
-
-                    bld.setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    final AlertDialog dialog=bld.create();
-                    dialog.show();
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, MainActivity.this, request_code);
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
+       appUpdateManager.registerListener(installStateUpdatedListener);
+    }
+
+       InstallStateUpdatedListener installStateUpdatedListener = new InstallStateUpdatedListener() {
+        @Override
+        public void onStateUpdate(@NonNull InstallState state) {
+            if (state.installStatus() == InstallStatus.DOWNLOADED)
+            {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "App is ready to install", Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Install App", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        appUpdateManager.completeUpdate();
+                        Toast.makeText(MainActivity.this, "CRACKCOMP updated successfully", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                snackbar.setTextColor(Color.WHITE);
+                snackbar.setActionTextColor(Color.WHITE);
+
+                snackbar.show();
+            }
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == request_code && resultCode != RESULT_OK)
+        {
+                Toast.makeText(this, "update failed"+resultCode, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (appUpdateManager != null)
+        {
+            appUpdateManager.unregisterListener(installStateUpdatedListener);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+//            @Override
+//            public void onSuccess(AppUpdateInfo result) {
+//           if (result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
+//           {
+//               try {
+//                   appUpdateManager.startUpdateFlowForResult(result, AppUpdateType.FLEXIBLE, MainActivity.this, request_code);
+//               } catch (IntentSender.SendIntentException e) {
+//                   e.printStackTrace();
+//               }
+//           }
+//            }
+//        });
     }
 
     @Override
@@ -776,7 +817,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onStart() {
-        updateApp();
+        In_app_update();
         super.onStart();
     }
 }

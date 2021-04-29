@@ -219,7 +219,7 @@ public class Update_Question extends AppCompatActivity {
 
                      onBackPressed();
 
-                    Toast.makeText(Update_Question.this, "Question uploaded successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Update_Question.this, "Question updated successfully", Toast.LENGTH_SHORT).show();
 
                 }
 

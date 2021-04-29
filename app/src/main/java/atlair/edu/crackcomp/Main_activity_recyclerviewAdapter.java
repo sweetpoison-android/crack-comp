@@ -1,5 +1,6 @@
 package atlair.edu.crackcomp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -160,7 +161,8 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                         String child_parent = dataSnapshot.getKey();
                          final Intent in = new Intent(con, AllUser_Activity.class);
                         in.putExtra("child_parent",child_parent);
-                         con.startActivity(in);
+                            con.startActivity(in);
+                         ((Activity)con).finish();
 
                      }
 

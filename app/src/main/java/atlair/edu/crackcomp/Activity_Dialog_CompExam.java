@@ -66,6 +66,7 @@ public class Activity_Dialog_CompExam extends DialogFragment {
                 if (s.equalsIgnoreCase("Upload Question"))
                 {
                     startActivity(new Intent(getActivity().getApplicationContext(),Upload_question.class));
+
                 }
                 else if (s.equalsIgnoreCase("Show Question"))
                 {

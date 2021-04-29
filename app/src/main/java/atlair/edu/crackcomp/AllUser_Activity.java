@@ -86,14 +86,11 @@ public class AllUser_Activity extends AppCompatActivity {
         String child_parent = in.getStringExtra("child_parent");
 
 
-        if(fuser != null)
-        {
             ref.child("User").child(child_parent).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String username=dataSnapshot.child("name").getValue().toString();
+                    username=dataSnapshot.child("name").getValue().toString();
                     userimgurl=dataSnapshot.child("imgurl").getValue().toString();
-
                     if(userimgurl.equalsIgnoreCase("no image"))
                     {
                         civ.setImageResource(R.mipmap.adventure);
@@ -105,18 +102,14 @@ public class AllUser_Activity extends AppCompatActivity {
                     ctl.setTitle(username);
                     ctl.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"fonts/DancingScript-Regular.otf"));
                     ctl.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"fonts/DancingScript-Regular.otf"));
-                }
+
+                    }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
-        }
-        else
-        {
-
-        }
 
         civ.setOnClickListener(new View.OnClickListener() {
             @Override
