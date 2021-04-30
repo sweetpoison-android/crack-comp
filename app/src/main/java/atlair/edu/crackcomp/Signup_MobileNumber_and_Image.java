@@ -76,17 +76,17 @@ ProgressDialog pd;
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
+        //    check internet status
+
         boolean connected=false;
         ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
         {
             connected = true;
-            // Toast.makeText(this, " Internet connected ", Toast.LENGTH_SHORT).show();
             pb.setVisibility(View.GONE);
         }
         else {
             connected = false;
-            //Toast.makeText(this, " Please connect to Internet ", Toast.LENGTH_SHORT).show();
             pb.setVisibility(View.VISIBLE);
             AlertDialog.Builder bld=new AlertDialog.Builder(Signup_MobileNumber_and_Image.this);
             bld.setTitle("Internet Connection");

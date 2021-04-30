@@ -341,15 +341,6 @@ ref.child("Question").child(fuser.getUid()).child("Computer Language").addListen
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-
-        startActivity(new Intent(UserActivity.this,MainActivity.class));
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-         finish();
-
-    }
-
     public void setlist() {
         ArrayList<Main_activity_bean> ar = new ArrayList<>();
 
@@ -425,6 +416,15 @@ ref.child("Question").child(fuser.getUid()).child("Computer Language").addListen
             GridLayoutManager mngr = new GridLayoutManager(this, 1);
             rv.setLayoutManager(mngr);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(UserActivity.this,MainActivity.class));
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+        finish();
+
     }
 
 }

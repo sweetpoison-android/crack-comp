@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +60,7 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
     public Myinner onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater lnf=LayoutInflater.from(con);
-        View v=lnf.inflate(R.layout.main_activity_item,null,true);
+        View v=lnf.inflate(R.layout.show_question_item,null,true);
 
         return new MyRecyclerviewAdapter.Myinner(v);
     }
@@ -114,6 +116,7 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
     public class Myinner extends RecyclerView.ViewHolder {
 
         CircleImageView img;
+        ImageView optionimage;
         TextView name, time, ques,option1,option2,option3,option4,ans;
         Button bt;
 
@@ -128,6 +131,7 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
 
 
             img = itemView.findViewById(R.id.main_activity_item_imageview);
+            optionimage = itemView.findViewById(R.id.main_activity_item_optionimage);
             name = itemView.findViewById(R.id.main_activity_item_name);
             time = itemView.findViewById(R.id.main_activity_item_time);
             ques = itemView.findViewById(R.id.main_activity_item_ques);
@@ -183,45 +187,89 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
                 language=shp.getString("language",null);
             }
 
-itemView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-       // Toast.makeText(con, Integer.toString(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-    }
-});
 
-            itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+//            itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+//                @Override
+//                public void onCreateContextMenu(ContextMenu contextMenu, final View view, ContextMenu.ContextMenuInfo menuInfo) {
+//
+//                    contextMenu.setHeaderTitle("Choose Option");
+//
+//                    contextMenu.add(0,view.getId(),0,"delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem menuItem) {
+//
+//                            deleteQuestion();
+//                            return true;
+//                        }
+//                    });
+//
+//                    contextMenu.add(0,view.getId(),0,"Update").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//                            Intent in=new Intent(con,Update_Question.class);
+//                          in.putExtra("question_position",Integer.toString(getAdapterPosition()));
+//
+//                            con.startActivity(in);
+//
+//                            return true;
+//                        }
+//                    });
+//
+//                    contextMenu.add(0,view.getId(),0,"Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                        @Override
+//                        public boolean onMenuItemClick(MenuItem item) {
+//
+//                            Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.questionshare);
+//                            String imgBitmapPath = MediaStore.Images.Media.insertImage(con.getContentResolver(),imgBitmap,"title"+ System.currentTimeMillis(),null);
+//                            Uri imgBitmapUri = Uri.parse(imgBitmapPath);
+//
+//                                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                //                shareIntent.setPackage("com.whatsapp");  // for only on whatsapp sharing
+//                                shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
+//                                shareIntent.setType("image/*");
+//                                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                                shareIntent.putExtra(Intent.EXTRA_TEXT," Q :- "+ ar.get(getAdapterPosition()).getQuestion()+"\n" +
+//                                        "A. " + ar.get(getAdapterPosition()).getOption1() + "\n" +
+//                                        "B. " + ar.get(getAdapterPosition()).getOption2() + "\n" +
+//                                        "C. " + ar.get(getAdapterPosition()).getOption3() + "\n" +
+//                                        "D. " + ar.get(getAdapterPosition()).getOption4() + "\n" +
+//                                        " Ans :- "+ar.get(getAdapterPosition()).getAns());
+//                                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Crack Comp");
+//                                con.startActivity(Intent.createChooser(shareIntent, "Share this"));
+//
+//                            return true;
+//                        }
+//                    });
+//
+//                }
+//            });
+//
+//
+            optionimage.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCreateContextMenu(ContextMenu contextMenu, final View view, ContextMenu.ContextMenuInfo menuInfo) {
-
-                    contextMenu.setHeaderTitle("Choose Option");
-
-                    contextMenu.add(0,view.getId(),0,"delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem menuItem) {
-
-                            deleteQuestion();
-                            return true;
-                        }
-                    });
-
-                    contextMenu.add(0,view.getId(),0,"Update").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                public void onClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(con, v);
+                    popupMenu.getMenuInflater().inflate(R.menu.showquestionitem_optionmenu, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            Intent in=new Intent(con,Update_Question.class);
+
+                            switch (item.getItemId())
+                            {
+                                case R.id.delete :
+                                    deleteQuestion();
+                                    break;
+
+                                case R.id.update :
+                                    Intent in=new Intent(con,Update_Question.class);
                           in.putExtra("question_position",Integer.toString(getAdapterPosition()));
-
                             con.startActivity(in);
+                                    break;
 
-                            return true;
-                        }
-                    });
+                                case R.id.share :
 
-                    contextMenu.add(0,view.getId(),0,"Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-
-                            Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.questionshare);
+                                    Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.questionshare);
                             String imgBitmapPath = MediaStore.Images.Media.insertImage(con.getContentResolver(),imgBitmap,"title"+ System.currentTimeMillis(),null);
                             Uri imgBitmapUri = Uri.parse(imgBitmapPath);
 
@@ -240,13 +288,17 @@ itemView.setOnClickListener(new View.OnClickListener() {
                                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Crack Comp");
                                 con.startActivity(Intent.createChooser(shareIntent, "Share this"));
 
-                            return true;
+                                    break;
+
+                            }
+
+                            return false;
                         }
                     });
 
+                    popupMenu.show();
                 }
             });
-
 
         }
 
@@ -256,7 +308,6 @@ itemView.setOnClickListener(new View.OnClickListener() {
             AlertDialog.Builder bld=new AlertDialog.Builder(con);
             bld.setTitle("Delete Question");
             bld.setIcon(R.mipmap.adventure);
-
             bld.setMessage("Are you sure, you want to delete this Question ?");
             bld.setCancelable(false);
             bld.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -308,6 +359,10 @@ itemView.setOnClickListener(new View.OnClickListener() {
             });
 
             final AlertDialog dialog=bld.create();
+            if (dialog.getWindow() != null)
+            {
+                dialog.getWindow().getAttributes().windowAnimations = R.style.SlidingDialogAnimation;
+            }
             dialog.show();
 
         }

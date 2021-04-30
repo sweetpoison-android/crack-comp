@@ -66,15 +66,22 @@ public class Activity_Dialog_CompExam extends DialogFragment {
                 if (s.equalsIgnoreCase("Upload Question"))
                 {
                     startActivity(new Intent(getActivity().getApplicationContext(),Upload_question.class));
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                    getActivity().finish();
 
                 }
                 else if (s.equalsIgnoreCase("Show Question"))
                 {
                     startActivity(new Intent(getActivity().getApplicationContext(),ShowQuestionComp.class));
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    getActivity().finish();
                 }
                 else if (s.equalsIgnoreCase("Give Test"))
                 {
                     startActivity(new Intent(getActivity().getApplicationContext(),GiveTest_CompExam.class));
+                    getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    getActivity().finish();
                 }
                 else if (s.equalsIgnoreCase(""))
                 {

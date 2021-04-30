@@ -222,6 +222,8 @@ public class ShowQuestionComp extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                startActivity(new Intent(getApplicationContext(), UserActivity.class));
+               overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+               finish();
                 return false;
             }
         });
