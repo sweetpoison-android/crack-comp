@@ -15,7 +15,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/result_toolbar"
             app:title="Result"
-            app:titleTextColor="#ffffff"/>
+            app:titleTextColor="#ffffff"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"/>
     </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"

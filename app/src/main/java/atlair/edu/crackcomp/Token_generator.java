@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import androidx.core.app.NotificationCompat;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -18,6 +19,8 @@ public class Token_generator extends FirebaseInstanceIdService {
     SharedPreferences.Editor edt;
 
     String token;
+
+    Check_Internet_Status status = new Check_Internet_Status();
     @Override
     public void onTokenRefresh() {
        token = FirebaseInstanceId.getInstance().getToken();
@@ -41,7 +44,7 @@ public class Token_generator extends FirebaseInstanceIdService {
         bld.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.adventure));
         bld.setContentTitle("Welcome");
         bld.setStyle(new NotificationCompat.BigTextStyle().bigText(token));
-        bld.setContentText("Expand for Token");
+      //  bld.setContentText("Expand for Token");
         bld.setAutoCancel(true);
         bld.setDefaults(NotificationCompat.DEFAULT_ALL);
         bld.setPriority(NotificationCompat.PRIORITY_HIGH);

@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
    AppUpdateManager appUpdateManager;
    int request_code = 1;
 
+   Check_Internet_Status check_internet = new Check_Internet_Status();
+
+   String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +133,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         In_app_update();
 
+        shp=getSharedPreferences("abc",MODE_PRIVATE);
+        if (shp.getString("token",null) != null)
+        {
+            token=shp.getString("token",null);
+        }
 
-         ut.getoffline();
+        if (token == null)
+        {
+            check_internet.internet_status(MainActivity.this,pb);
+        }
+
+
+
+        ut.getoffline();
 
             tv.setText("Current Affairs Ques");
 
@@ -424,6 +439,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String shareUrl = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, "Click on link to download this App :\n" + shareUrl);
                     startActivity(Intent.createChooser(shareIntent, "Share this"));
+
+                dl.closeDrawer(GravityCompat.START);
 
                 break;
 
@@ -782,6 +799,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
 
+        // for intermediate update
+
 //        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
 //            @Override
 //            public void onSuccess(AppUpdateInfo result) {
@@ -824,31 +843,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-class Utils
-{
+class Utils {
+
     private static FirebaseDatabase dboffline;
 
-    public static FirebaseDatabase getoffline()
-    {
+    public static FirebaseDatabase getoffline() {
 
-        if(dboffline == null)
-        {
-            dboffline=FirebaseDatabase.getInstance();
+
+        if (dboffline == null) {
+            dboffline = FirebaseDatabase.getInstance();
             dboffline.setPersistenceEnabled(true);
         }
 
+
         return dboffline;
     }
 
-    public static FirebaseDatabase getonline() {
-
-        if(dboffline == null)
-        {
-            dboffline=FirebaseDatabase.getInstance();
-            dboffline.setPersistenceEnabled(false);
-        }
-
-        return dboffline;
-
-    }
+//    public static FirebaseDatabase getonline() {
+//
+//        if(dboffline == null)
+//        {
+//            dboffline=FirebaseDatabase.getInstance();
+//            dboffline.setPersistenceEnabled(false);
+//        }
+//
+//        return dboffline;
+//
+//    }
 }

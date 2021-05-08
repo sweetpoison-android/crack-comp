@@ -40,6 +40,8 @@ public class ForgetPassword extends AppCompatActivity {
 
     FirebaseAuth auth;
 
+    Check_Internet_Status internet_status = new Check_Internet_Status();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,44 +70,7 @@ public class ForgetPassword extends AppCompatActivity {
 
         //       Internet connection .................................
 
-        boolean connected=false;
-        ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-        {
-            connected = true;
-            // Toast.makeText(this, " Internet connected ", Toast.LENGTH_SHORT).show();
-            pb.setVisibility(View.GONE);
-        }
-        else {
-            connected = false;
-            //Toast.makeText(this, " Please connect to Internet ", Toast.LENGTH_SHORT).show();
-            pb.setVisibility(View.VISIBLE);
-            AlertDialog.Builder bld=new AlertDialog.Builder(ForgetPassword.this);
-            bld.setTitle("Internet Connection");
-            bld.setIcon(R.drawable.ic_internet_black_24dp);
-            bld.setMessage("Please connect with internet");
-            bld.setCancelable(false);
-            bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent in=new Intent(Intent.ACTION_MAIN);
-                    in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-                    startActivity(in);
-
-                }
-            });
-
-            bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            final AlertDialog dialog=bld.create();
-            dialog.show();
-        }
-
+        internet_status.internet_status(ForgetPassword.this, pb);
 
         auth = FirebaseAuth.getInstance();
 

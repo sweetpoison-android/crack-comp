@@ -67,6 +67,8 @@ public class GiveTest_CompExam extends AppCompatActivity {
 
     ArrayList<Integer> question_no = new ArrayList<Integer>();
 
+    Check_Internet_Status internet_status = new Check_Internet_Status();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,51 +98,11 @@ public class GiveTest_CompExam extends AppCompatActivity {
         }
 
 
+        //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // generate question from offline so internet is not necessary
 
         ref= FirebaseDatabase.getInstance().getReference();
         auth= FirebaseAuth.getInstance();
         fuser=auth.getCurrentUser();
-
-        //   Internet connection screen ..............
-
-        boolean connected=false;
-        ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-        {
-            connected = true;
-           // Toast.makeText(this, " Internet connected ", Toast.LENGTH_SHORT).show();
-            pb.setVisibility(View.GONE);
-        }
-        else {
-            connected = false;
-            //Toast.makeText(this, " Please connect to Internet ", Toast.LENGTH_SHORT).show();
-            pb.setVisibility(View.VISIBLE);
-            AlertDialog.Builder bld=new AlertDialog.Builder(GiveTest_CompExam.this);
-            bld.setTitle("Internet Connection");
-            bld.setIcon(R.drawable.ic_internet_black_24dp);
-            bld.setMessage("Please connect with internet");
-            bld.setCancelable(false);
-            bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-               Intent in=new Intent(Intent.ACTION_MAIN);
-              in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-               startActivity(in);
-
-                }
-            });
-
-            bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            final AlertDialog dialog=bld.create();
-            dialog.show();
-        }
-
 
 
         shp=getSharedPreferences("abc",MODE_PRIVATE);
@@ -208,41 +170,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                         else
                         {
                             pb.setVisibility(View.VISIBLE);
-                            boolean connected=false;
-                            ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                            if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                            {
-                                connected = true;
-                            }
-
-                            else
-                            {
-                                connected = false;
-                                AlertDialog.Builder bld=new AlertDialog.Builder(GiveTest_CompExam.this);
-                                bld.setTitle("Internet Connection");
-                                bld.setIcon(R.drawable.ic_internet_black_24dp);
-                                bld.setMessage("Please connect with Internet");
-                                bld.setCancelable(false);
-                                bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent in=new Intent(Intent.ACTION_MAIN);
-                                        in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-                                        startActivity(in);
-                                        finish();
-                                    }
-                                });
-
-                                bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                final AlertDialog dialog=bld.create();
-                                dialog.show();
-                            }
+                            internet_status.internet_status(GiveTest_CompExam.this, pb);
 
               //  ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
                             pre_randomnumber=randomnumber;
@@ -575,40 +503,8 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                 else
                 {
                     pb.setVisibility(View.VISIBLE);
-                    boolean connected=false;
-                    ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                    {
-                        connected = true;
-                    }
 
-                    else
-                    {
-                        connected = false;
-                        AlertDialog.Builder bld=new AlertDialog.Builder(GiveTest_CompExam.this);
-                        bld.setTitle("Internet Connection");
-                        bld.setIcon(R.drawable.ic_internet_black_24dp);
-                        bld.setMessage("Please connect with Internet");
-                        bld.setCancelable(false);
-                        bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent in=new Intent(Intent.ACTION_MAIN);
-                                in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-                                startActivity(in);
-                            }
-                        });
-
-                        bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                        final AlertDialog dialog=bld.create();
-                        dialog.show();
-                    }
+                    //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // show question from offline so internet is not necessary
 
 //                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
                     pre_randomnumber=randomnumber;
@@ -944,40 +840,8 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                         else
                         {
                             pb.setVisibility(View.VISIBLE);
-                            boolean connected=false;
-                            ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-                            if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-                            {
-                                connected = true;
-                            }
 
-                            else
-                            {
-                                connected = false;
-                                AlertDialog.Builder bld=new AlertDialog.Builder(GiveTest_CompExam.this);
-                                bld.setTitle("Internet Connection");
-                                bld.setIcon(R.drawable.ic_internet_black_24dp);
-                                bld.setMessage("Please connect with Internet");
-                                bld.setCancelable(false);
-                                bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent in=new Intent(Intent.ACTION_MAIN);
-                                        in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-                                        startActivity(in);
-                                    }
-                                });
-
-                                bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                final AlertDialog dialog=bld.create();
-                                dialog.show();
-                            }
+                         //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // show question from offline so internet is not necessary
 
 //                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
                             pre_randomnumber=randomnumber;
@@ -1294,8 +1158,3 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
     }
 
 }
-
-
-
-
-

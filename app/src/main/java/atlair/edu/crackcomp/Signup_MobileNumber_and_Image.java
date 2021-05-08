@@ -55,7 +55,9 @@ public class Signup_MobileNumber_and_Image extends AppCompatActivity {
     DatabaseReference ref;
     FirebaseAuth mAuth;
 
-ProgressDialog pd;
+    ProgressDialog pd;
+
+    Check_Internet_Status internet_status = new Check_Internet_Status();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,42 +80,7 @@ ProgressDialog pd;
 
         //    check internet status
 
-        boolean connected=false;
-        ConnectivityManager mngr=(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(mngr.getNetworkInfo(mngr.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED)
-        {
-            connected = true;
-            pb.setVisibility(View.GONE);
-        }
-        else {
-            connected = false;
-            pb.setVisibility(View.VISIBLE);
-            AlertDialog.Builder bld=new AlertDialog.Builder(Signup_MobileNumber_and_Image.this);
-            bld.setTitle("Internet Connection");
-            bld.setIcon(R.drawable.ic_internet_black_24dp);
-            bld.setMessage("Please connect with internet");
-            bld.setCancelable(false);
-            bld.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent in=new Intent(Intent.ACTION_MAIN);
-                    in.setComponent(new ComponentName("com.android.settings" , "com.android.settings.Settings$DataUsageSummaryActivity"));
-                    startActivity(in);
-
-                }
-            });
-
-            bld.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            final AlertDialog dialog=bld.create();
-            dialog.show();
-        }
-
+        internet_status.internet_status(Signup_MobileNumber_and_Image.this, pb);
 
         ref= FirebaseDatabase.getInstance().getReference();
         choosebutton.setOnClickListener(new View.OnClickListener() {
