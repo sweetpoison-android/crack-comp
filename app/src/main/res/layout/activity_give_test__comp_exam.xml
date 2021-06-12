@@ -65,7 +65,8 @@
         android:background="@color/colorPrimary"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +75,8 @@
         android:background="@color/colorPrimary"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +85,8 @@
         android:background="@color/colorPrimary"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,7 +95,8 @@
             android:background="@color/colorPrimary"
             android:textColor="#ffffff"
             android:textSize="20sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"/>
 
     </RelativeLayout>
 

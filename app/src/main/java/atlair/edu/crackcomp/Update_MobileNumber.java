@@ -150,6 +150,7 @@ public class Update_MobileNumber extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(Update_MobileNumber.this, Account_Detail.class));
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+        super.onBackPressed();
 
     }
 

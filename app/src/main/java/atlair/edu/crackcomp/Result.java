@@ -123,10 +123,10 @@ public class Result extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem search=menu.add(0,0,1,"Goto Activity");
-        search.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        MenuItem gotoactivity=menu.add(0,0,1,"Goto Activity");
+        gotoactivity.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
-        search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        gotoactivity.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 startActivity(new Intent(getApplicationContext(), UserActivity.class));

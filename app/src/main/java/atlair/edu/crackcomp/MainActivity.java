@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -148,11 +149,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ut.getoffline();
 
-            tv.setText("Current Affairs Ques");
+
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP)
         {
-            getWindow().setStatusBarColor(Color.parseColor("#480B72"));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
         setSupportActionBar(tb);
 
@@ -362,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                ref.keepSynced(true);
 
                            }
-                         setlist3();
+                       //  setlist3();
                        }
 
                        @Override
@@ -394,7 +395,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                pb.setVisibility(View.GONE);
                                ref.keepSynced(true);
                            }
-                         // setlist4();
+                          setlist();
+                           tv.setText("All Ques");
                        }
 
                        @Override
@@ -485,92 +487,217 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        final MenuItem upload=menu.add(0,0,1,"Upload");
+//        upload.setIcon(R.drawable.ic_cloud_upload_black_24dp);
+//        upload.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+//
+//        if (fuser != null)
+//        {
+//            upload.setVisible(false);
+//        }
+//        else
+//        {
+//            upload.setVisible(true);
+//        }
+//
+//        upload.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                login_AlertDialog();
+//                return true;
+//            }
+//        });
+//
+//
+//
+//
+//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+//       MenuItem search = menu.findItem(R.id.search);
+//        SearchView searchView = (SearchView) search.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                upload.setVisible(false);
+//                ardp.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//
+//
+//        MenuItem allques = menu.add(0,0,1,"All Question");
+//        allques.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        allques.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                setlist();
+//                tv.setText("All Question");
+//                return true;
+//            }
+//        });
+//
+//        MenuItem compexam = menu.add(0,0,1,"Competative Exam Ques");
+//        compexam.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        compexam.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                setlist1();
+//                tv.setText("Competative Exam Question");
+//                return true;
+//            }
+//        });
+//
+//        MenuItem compLang = menu.add(0,0,1,"Computer Language Ques");
+//        compLang.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        compLang.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                setlist2();
+//                tv.setText("Computer Language Question");
+//                return true;
+//            }
+//        });
+//
+//
+//        MenuItem currentaffais = menu.add(0,0,1,"Current Affairs Ques");
+//        currentaffais.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        currentaffais.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                setlist3();
+//                tv.setText("Current Affairs Question");
+//                return true;
+//            }
+//        });
+//
+//        MenuItem otherques = menu.add(0,0,1,"Other Ques");
+//        otherques.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        otherques.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                setlist4();
+//                tv.setText("Other Question");
+//                return true;
+//            }
+//        });
+//
+
+
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem upload=menu.add(0,0,1,"Upload");
-        upload.setIcon(R.drawable.ic_cloud_upload_black_24dp);
-        upload.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-       if (fuser != null)
-       {
-          upload.setVisible(false);
-       }
-       else
-       {
-          upload.setVisible(true);
-       }
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        final MenuItem upload = menu.findItem(R.id.upload);
 
-        upload.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        if (fuser != null)
+        {
+            upload.setVisible(false);
+        }
+        else
+        {
+            upload.setVisible(true);
+        }
+
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search Question");
+
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-             login_AlertDialog();
-                return true;
+            public void onClick(View v) {
+                upload.setVisible(false);
             }
         });
 
-        MenuItem allques = menu.add(0,0,1,"All Question");
-        allques.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        allques.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setlist();
-                tv.setText("All Question");
-                return true;
+            public boolean onClose() {
+                upload.setVisible(true);
+                return false;
             }
         });
 
-        MenuItem compexam = menu.add(0,0,1,"Competative Exam Ques");
-        compexam.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-        compexam.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setlist1();
-                tv.setText("Competative Exam Question");
-                return true;
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                ardp.getFilter().filter(newText);
+                return false;
             }
         });
 
-        MenuItem compLang = menu.add(0,0,1,"Computer Language Ques");
-        compLang.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        compLang.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setlist2();
-                tv.setText("Computer Language Question");
-                return true;
-            }
-        });
-
-
-        MenuItem currentaffais = menu.add(0,0,1,"Current Affairs Ques");
-        currentaffais.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        currentaffais.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setlist3();
-                tv.setText("Current Affairs Question");
-                return true;
-            }
-        });
-
-        MenuItem otherques = menu.add(0,0,1,"Other Ques");
-        otherques.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-        otherques.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                setlist4();
-                tv.setText("Other Question");
-                return true;
-            }
-        });
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.upload :
+         login_AlertDialog();
+                break;
+
+            case R.id.all_ques :
+                setlist();
+                tv.setText("All Question");
+
+                break;
+
+            case R.id.compexam_ques :
+                setlist1();
+                tv.setText("Competative Exam Ques");
+                break;
+
+            case R.id.complang_ques :
+                setlist2();
+                tv.setText("Computer Language Ques");
+                break;
+
+            case R.id.current_ques :
+                setlist3();
+                tv.setText("Current Affairs Ques");
+                break;
+
+            case R.id.othe_ques :
+                setlist4();
+                tv.setText("Other Question");
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     public void setlist() {
@@ -636,6 +763,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(getApplicationContext(),Login.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
 
             }

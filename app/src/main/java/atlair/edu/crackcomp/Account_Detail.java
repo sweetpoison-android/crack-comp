@@ -183,6 +183,7 @@ public class Account_Detail extends AppCompatActivity {
                         // your action here
                             startActivity(new Intent(Account_Detail.this, Update_MobileNumber.class));
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
                         return true;
                     }
                 }
@@ -196,6 +197,7 @@ public class Account_Detail extends AppCompatActivity {
             public void onClick(View v) {
             startActivity(new Intent(Account_Detail.this, Update_ProfileImage.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
             }
         });
 
@@ -206,7 +208,7 @@ public class Account_Detail extends AppCompatActivity {
 
         startActivity(new Intent(Account_Detail.this,MainActivity.class));
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+      super.onBackPressed();
 
-        super.onBackPressed();
     }
 }

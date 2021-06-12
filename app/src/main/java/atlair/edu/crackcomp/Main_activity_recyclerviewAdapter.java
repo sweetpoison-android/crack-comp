@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,18 +29,23 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main_activity_recyclerviewAdapter.Myinner> {
+public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main_activity_recyclerviewAdapter.Myinner> implements Filterable {
 
     Context con;
     ArrayList<Main_activity_bean> ar = new ArrayList<>();
+    List<Main_activity_bean> filter_ar;  // search recyclerview item
+
 
 
     public Main_activity_recyclerviewAdapter(Context con, ArrayList<Main_activity_bean> ar) {
         this.con = con;
         this.ar = ar;
+        this.filter_ar = new ArrayList<>(ar);   // search recyclerview item
     }
 
     @NonNull
@@ -98,6 +105,42 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
         return ar.size();
 
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Main_activity_bean> lt = new ArrayList<>();
+            if (constraint.toString().isEmpty())
+            {
+                lt.addAll(filter_ar);
+            }else {
+                for (Main_activity_bean ques : filter_ar)
+                {
+                  if (ques.getQuestion().toLowerCase().contains(constraint.toString().toLowerCase()))
+                  {
+                      lt.add(ques);
+                  }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = lt;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+          ar.clear();
+          ar.addAll((Collection<? extends Main_activity_bean>) results.values);
+          notifyDataSetChanged();
+        }
+    };
 
 
     public class Myinner extends RecyclerView.ViewHolder {

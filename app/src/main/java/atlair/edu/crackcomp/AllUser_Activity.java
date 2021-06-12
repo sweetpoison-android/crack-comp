@@ -2,6 +2,7 @@ package atlair.edu.crackcomp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -281,10 +282,44 @@ public class AllUser_Activity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
         menu.findItem(R.id.upload).setVisible(false);
+
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search Question");
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                civ.setAlpha(0.3f);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                civ.setAlpha(1.0f);
+                return false;
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ardp.getFilter().filter(newText);
+                return false;
+            }
+        });
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -339,7 +374,7 @@ public class AllUser_Activity extends AppCompatActivity {
         ar.addAll(ar4);
 
         if (ar.size() == 0) {
-            Toast.makeText(this, "You have not any Question this type of", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Question not Available", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -355,7 +390,7 @@ public class AllUser_Activity extends AppCompatActivity {
     {
         if (ar1.size() == 0)
         {
-            Toast.makeText(this, "You have not any Question this type of", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This type of Question not available", Toast.LENGTH_SHORT).show();
         }
         else {
             ardp = new Main_activity_recyclerviewAdapter(this, ar1);
@@ -370,7 +405,7 @@ public class AllUser_Activity extends AppCompatActivity {
 
         if (ar2.size() == 0)
         {
-            Toast.makeText(this, "You have not any Question this type of", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This type of Question not available", Toast.LENGTH_SHORT).show();
         }
         else {
             ardp = new Main_activity_recyclerviewAdapter(this, ar2);
@@ -384,7 +419,7 @@ public class AllUser_Activity extends AppCompatActivity {
     {
         if (ar3.size() == 0)
         {
-            Toast.makeText(this, "You have not any Question this type of", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This type of Question not available", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -397,7 +432,7 @@ public class AllUser_Activity extends AppCompatActivity {
     }
     public void setlist4() {
         if (ar4.size() == 0) {
-            Toast.makeText(this, "You have not any Question this type of", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This type of Question not available", Toast.LENGTH_SHORT).show();
         } else {
             ardp = new Main_activity_recyclerviewAdapter(this, ar4);
             rv.setAdapter(ardp);

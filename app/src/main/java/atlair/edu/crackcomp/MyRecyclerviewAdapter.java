@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -38,29 +40,35 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAdapter.Myinner> {
+public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAdapter.Myinner> implements Filterable  {
 
     Context con;
-    ArrayList<Main_activity_bean> ar=new ArrayList<>();
+    ArrayList<Main_activity_bean> ar = new ArrayList<>();
+    List<Main_activity_bean> filter_ar;
+
 
 
     public MyRecyclerviewAdapter(Context con, ArrayList<Main_activity_bean> ar) {
         this.con = con;
         this.ar = ar;
+        this.filter_ar = new ArrayList<>(ar);
+
     }
 
     @NonNull
     @Override
     public Myinner onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater lnf=LayoutInflater.from(con);
-        View v=lnf.inflate(R.layout.show_question_item,null,true);
+        LayoutInflater lnf = LayoutInflater.from(con);
+        View v = lnf.inflate(R.layout.show_question_item, null, true);
 
         return new MyRecyclerviewAdapter.Myinner(v);
     }
@@ -68,21 +76,18 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
     @Override
     public void onBindViewHolder(@NonNull Myinner holder, int position) {
 
-        if(ar.get(position).getImgurl().equalsIgnoreCase("no image"))
-        {
+        if (ar.get(position).getImgurl().equalsIgnoreCase("no image")) {
             holder.img.setImageResource(R.mipmap.adventure);
-            holder.img .setAnimation(AnimationUtils.loadAnimation(con, R.anim.fade_scale_animation));
+            holder.img.setAnimation(AnimationUtils.loadAnimation(con, R.anim.fade_scale_animation));
 
-        }
-        else
-        {
+        } else {
             Picasso.get().load(ar.get(position).getImgurl()).into(holder.img);
             holder.img.setAnimation(AnimationUtils.loadAnimation(con, R.anim.fade_scale_animation));
 
         }
 
 
-        holder.name.setText( ar.get(position).getName());
+        holder.name.setText(ar.get(position).getName());
         holder.name.setAnimation(AnimationUtils.loadAnimation(con, R.anim.reyclerviewitem_slidefromright));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy  hh:mm a");  // hh used for 12hour format and HH used for 24 hour format and a used for am and pm
@@ -93,7 +98,7 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
         holder.ques.setText(Integer.toString(position + 1) + " :- " + ar.get(position).getQuestion());
         holder.ques.setAnimation(AnimationUtils.loadAnimation(con, R.anim.reyclerviewitem_slidefromright));
 
-        holder.option1.setText( ar.get(position).getOption1());
+        holder.option1.setText(ar.get(position).getOption1());
         holder.option1.setAnimation(AnimationUtils.loadAnimation(con, R.anim.reyclerviewitem_slidefromright));
 
         holder.option2.setText(ar.get(position).getOption2());
@@ -112,6 +117,42 @@ public class MyRecyclerviewAdapter extends RecyclerView.Adapter<MyRecyclerviewAd
         return ar.size();
 
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Main_activity_bean> lt = new ArrayList<>();
+            if (constraint.toString().isEmpty())
+            {
+                lt.addAll(filter_ar);
+            }else {
+                for (Main_activity_bean ques : filter_ar)
+                {
+                    if (ques.getQuestion().toLowerCase().contains(constraint.toString().toLowerCase()))
+                    {
+                        lt.add(ques);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = lt;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+        ar.clear();
+        ar.addAll((Collection<? extends Main_activity_bean>) results.values);
+        notifyDataSetChanged();
+        }
+    };
+
 
     public class Myinner extends RecyclerView.ViewHolder {
 

@@ -381,7 +381,7 @@ public class Update_ProfileImage extends AppCompatActivity {
 
         startActivity(new Intent(Update_ProfileImage.this, Account_Detail.class));
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-
+         super.onBackPressed();
     }
 
 

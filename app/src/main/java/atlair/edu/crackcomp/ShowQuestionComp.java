@@ -2,6 +2,7 @@ package atlair.edu.crackcomp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -214,19 +215,52 @@ public class ShowQuestionComp extends AppCompatActivity {
     //    for create option menu programmatically
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem search=menu.add(0,0,1,"Goto Activity");
-        search.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
-        search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        getMenuInflater().inflate(R.menu.showquestion_toolbar, menu);
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search Question");
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-               startActivity(new Intent(getApplicationContext(), UserActivity.class));
-               overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-               finish();
+            public void onClick(View v) {
+                civ.setAlpha(0.3f);
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                civ.setAlpha(1.0f);
                 return false;
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ardp.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        MenuItem gotoactivity = menu.findItem(R.id.gotoactivity);
+        gotoactivity.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(getApplicationContext(), UserActivity.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+                return false;
+            }
+        });
+
 
         return super.onCreateOptionsMenu(menu);
     }

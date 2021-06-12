@@ -7,6 +7,12 @@
     android:id="@+id/upload"
     android:icon="@drawable/ic_cloud_upload_black_24dp"/>
 
+    <item android:title="Search"
+        app:showAsAction="always"
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
     <item android:title="All Question"
         android:id="@+id/all_ques"
         app:showAsAction="never"/>

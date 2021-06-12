@@ -3,6 +3,7 @@ package atlair.edu.crackcomp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -300,10 +302,43 @@ ref.child("Question").child(fuser.getUid()).child("Computer Language").addListen
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
 
+       MenuItem search = menu.findItem(R.id.search);
+       SearchView searchView = (SearchView) search.getActionView();
+        searchView.setQueryHint("Search Question");
+
+       searchView.setOnSearchClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               menu.findItem(R.id.upload).setVisible(false);
+               civ.setAlpha(0.3f);
+
+           }
+       });
+
+       searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+           @Override
+           public boolean onClose() {
+               menu.findItem(R.id.upload).setVisible(true);
+               civ.setAlpha(1.0f);
+               return false;
+           }
+       });
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String query) {
+               return false;
+           }
+
+           @Override
+           public boolean onQueryTextChange(String newText) {
+               ardp.getFilter().filter(newText);
+               return false;
+           }
+       });
         return super.onCreateOptionsMenu(menu);
     }
 
