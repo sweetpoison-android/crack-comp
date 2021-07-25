@@ -237,6 +237,13 @@ public class ShowQuestionComp extends AppCompatActivity {
             }
         });
 
+        if (ar.size()== 0)
+        {
+            search.setVisible(false);
+        }
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

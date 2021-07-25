@@ -3,6 +3,8 @@ package atlair.edu.crackcomp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +99,140 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
 
         holder.option4.setText(ar.get(position).getOption4());
         holder.option4.setAnimation(AnimationUtils.loadAnimation(con, R.anim.reyclerviewitem_slidefromright));
+
+        holder. option1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ar.get(position).getOption1().equalsIgnoreCase(ar.get(position).getAns()))
+                {
+                    holder.option1.setBackgroundColor(Color.GREEN);
+                    Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    holder.option1.setBackgroundColor(Color.RED);
+
+                    Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
+                    {
+                        holder.option1.setBackgroundColor(Color.GREEN);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
+                    {
+                        holder.option2.setBackgroundColor(Color.GREEN);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
+                    {
+                        holder.option3.setBackgroundColor(Color.GREEN);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
+                    {
+                        holder.option4.setBackgroundColor(Color.GREEN);
+                    }
+
+                }
+            }
+        });
+
+        holder. option2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ar.get(position).getOption2().equalsIgnoreCase(ar.get(position).getAns()))
+                {
+                    holder.option2.setBackgroundColor(Color.GREEN);
+                    Toast.makeText(con, "WOW... \n Right Answer", Toast.LENGTH_SHORT).show();
+
+                }
+                else holder.option2.setBackgroundColor(Color.RED);
+                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+
+
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
+                {
+                    holder.option1.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
+                {
+                    holder.option2.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
+                {
+                    holder.option3.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
+                {
+                    holder.option4.setBackgroundColor(Color.GREEN);
+                }
+
+
+            }
+        });
+        holder. option3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ar.get(position).getOption3().equalsIgnoreCase(ar.get(position).getAns()))
+                {
+                    holder.option3.setBackgroundColor(Color.GREEN);
+                    Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+
+                }
+                else holder.option3.setBackgroundColor(Color.RED);
+                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+
+
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
+                {
+                    holder.option1.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
+                {
+                    holder.option2.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
+                {
+                    holder.option3.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
+                {
+                    holder.option4.setBackgroundColor(Color.GREEN);
+                }
+
+            }
+        });
+        holder. option4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ar.get(position).getOption4().equalsIgnoreCase(ar.get(position).getAns()) )
+                {
+                    holder.option4.setBackgroundColor(Color.GREEN);
+                    Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+
+                }
+                else holder.option4.setBackgroundColor(Color.RED);
+                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+
+
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
+                {
+                    holder.option1.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
+                {
+                    holder.option2.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
+                {
+                    holder.option3.setBackgroundColor(Color.GREEN);
+                }
+                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
+                {
+                    holder.option4.setBackgroundColor(Color.GREEN);
+                }
+
+            }
+        });
+
 
     }
 
@@ -234,6 +370,11 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
              }
          });
 
+
+
+
         }
+
+
     }
 }

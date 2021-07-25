@@ -633,7 +633,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                upload.setVisible(true);
+                if (fuser != null)
+                {
+                    upload.setVisible(false);
+                }
+                else
+                {
+                    upload.setVisible(true);
+                }
                 return false;
             }
         });

@@ -21,12 +21,10 @@ public class Check_Internet_Status {
                 || mngr.getNetworkInfo(mngr.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
         {
             connected = true;
-            // Toast.makeText(this, " Internet connected ", Toast.LENGTH_SHORT).show();
             pb.setVisibility(View.GONE);
         }
         else {
             connected = false;
-            //Toast.makeText(this, " Please connect to Internet ", Toast.LENGTH_SHORT).show();
             pb.setVisibility(View.VISIBLE);
             AlertDialog.Builder bld=new AlertDialog.Builder(con);
             bld.setTitle("Internet Connection");
