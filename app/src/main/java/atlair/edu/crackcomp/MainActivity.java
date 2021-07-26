@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView nv;
     RecyclerView rv;
     Main_activity_recyclerviewAdapter ardp;
+
+    ArrayList<Main_activity_bean> ar = new ArrayList<>();
     ArrayList<Main_activity_bean> ar1 = new ArrayList<>();
     ArrayList<Main_activity_bean> ar2 = new ArrayList<>();
     ArrayList<Main_activity_bean> ar3 = new ArrayList<>();
@@ -395,8 +397,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                pb.setVisibility(View.GONE);
                                ref.keepSynced(true);
                            }
-                          setlist();
-                           tv.setText("All Ques");
+                          setlist3();
+
+                           tv.setText("Current Affairs Ques");
                        }
 
                        @Override
@@ -708,7 +711,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void setlist() {
-        ArrayList<Main_activity_bean> ar = new ArrayList<>();
+        ar = new ArrayList<>();
 
         ar.addAll(ar1);
         ar.addAll(ar2);

@@ -59,7 +59,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
     int total=0;
     int correct=0;
     int wrong=0;
-//    int pre_randomnumber=0;
+    int pre_randomnumber=0;
     int randomnumber=0;
 
     ArrayList<String> ar=new ArrayList<>();
@@ -172,29 +172,28 @@ public class GiveTest_CompExam extends AppCompatActivity {
                             pb.setVisibility(View.VISIBLE);
                             internet_status.internet_status(GiveTest_CompExam.this, pb);
 
-              //  ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
-//                            pre_randomnumber=randomnumber;
-//
-//                            randomnumber=new Random().nextInt(ar.size());
-//
-//                            while (randomnumber == pre_randomnumber)
-//                            {
-//                                randomnumber=new Random().nextInt(ar.size());
-//
-//                            }
+                            pre_randomnumber=randomnumber;
 
-                           Random r = new Random();
-                            HashSet<Integer> hashSet = new HashSet<>();
-                            while (hashSet.size() < 1)
+                            randomnumber=new Random().nextInt(ar.size());
+
+                            while (randomnumber == pre_randomnumber)
                             {
-                              int random = r.nextInt(ar.size());
-                              hashSet.add(random);
+                                randomnumber=new Random().nextInt(ar.size());
 
                             }
-                            for (int random_number : hashSet) {
-                                Toast.makeText(GiveTest_CompExam.this, Integer.toString(random_number), Toast.LENGTH_SHORT).show();
 
-                                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(random_number)).addValueEventListener(new ValueEventListener() {
+//                           Random r = new Random();
+//                            HashSet<Integer> hashSet = new HashSet<>();
+//                            while (hashSet.size() < 1)
+//                            {
+//                              int random = r.nextInt(ar.size());
+//                              hashSet.add(random);
+//
+//                            }
+//                            for (int random_number : hashSet) {
+//                                Toast.makeText(GiveTest_CompExam.this, Integer.toString(random_number), Toast.LENGTH_SHORT).show();
+
+                                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(randomnumber)).addValueEventListener(new ValueEventListener() {
 
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -453,7 +452,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                 });
 
                                 total++;
-                            }
+//                            }
                         }
                     }
                     else
@@ -516,13 +515,12 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
 
                     //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // show question from offline so internet is not necessary
 
-//                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
-//                    pre_randomnumber=randomnumber;
-//                    randomnumber=new Random().nextInt(ar.size());
-//                    while (randomnumber == pre_randomnumber)
-//                    {
-//                        randomnumber=new Random().nextInt(ar.size());
-//                    }
+                    pre_randomnumber=randomnumber;
+                    randomnumber=new Random().nextInt(ar.size());
+                    while (randomnumber == pre_randomnumber)
+                    {
+                        randomnumber=new Random().nextInt(ar.size());
+                    }
 
 
                     ref.child("Question").child(fuser.getUid()).child(compmain).child(language).child(ar.get(randomnumber)).addValueEventListener(new ValueEventListener() {
@@ -853,13 +851,12 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
 
                          //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // show question from offline so internet is not necessary
 
-//                ref.child("Question").child(fuser.getUid()).child(compmain).child(compexam).child(subject).child(ar.get(total)).addValueEventListener(new ValueEventListener() {
-//                            pre_randomnumber=randomnumber;
-//                            randomnumber=new Random().nextInt(ar.size());
-//                            while (randomnumber == pre_randomnumber)
-//                            {
-//                                randomnumber=new Random().nextInt(ar.size());
-//                            }
+                            pre_randomnumber=randomnumber;
+                            randomnumber=new Random().nextInt(ar.size());
+                            while (randomnumber == pre_randomnumber)
+                            {
+                                randomnumber=new Random().nextInt(ar.size());
+                            }
 
 
                             ref.child("Question").child(fuser.getUid()).child(compmain).child(ar.get(randomnumber)).addValueEventListener(new ValueEventListener() {

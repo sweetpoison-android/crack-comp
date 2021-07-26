@@ -63,7 +63,7 @@ public class UserActivity extends AppCompatActivity {
     String userimgurl,username;
     String ques,option1,option2,option3,option4,ans,time;
 
-
+    ArrayList<Main_activity_bean> ar = new ArrayList<>();
     ArrayList<Main_activity_bean> ar1 = new ArrayList<>();
     ArrayList<Main_activity_bean> ar2 = new ArrayList<>();
     ArrayList<Main_activity_bean> ar3 = new ArrayList<>();
@@ -95,6 +95,8 @@ public class UserActivity extends AppCompatActivity {
         {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+
+
 
         ref= FirebaseDatabase.getInstance().getReference();
         auth=FirebaseAuth.getInstance();
@@ -377,7 +379,7 @@ ref.child("Question").child(fuser.getUid()).child("Computer Language").addListen
     }
 
     public void setlist() {
-        ArrayList<Main_activity_bean> ar = new ArrayList<>();
+         ar = new ArrayList<>();
 
         ar.addAll(ar1);
         ar.addAll(ar2);

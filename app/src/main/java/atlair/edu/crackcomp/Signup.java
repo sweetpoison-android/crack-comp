@@ -134,16 +134,24 @@ public class Signup extends AppCompatActivity {
                                              if(task.isSuccessful())
                                              {
 
+//                                                 ref.child("User").child(mauth.getCurrentUser().getUid()).child("imgurl").setValue("no image");
+//
+//                                                 ref.child("User").child(mauth.getCurrentUser().getUid()).child("country").setValue("no country code");
+//                                                 ref.child("User").child(mauth.getCurrentUser().getUid()).child("mobile").setValue("no mobile number");
+
                                                  HashMap<String ,Object>data = new HashMap<>();
                                                  data.put("name",sname);
                                                  data.put("email",semail);
                                                  data.put("password",spassword);
+                                                 data.put("imgurl", "no image");
+                                                 data.put("country", "no country code");
+                                                 data.put("mobile", "no mobile number");
                                                   data.put("time",Long.toString(new Date().getTime()));
 
                                                   ref.child("User").child(mauth.getCurrentUser().getUid()).setValue(data);
 
                                                  Toast.makeText(Signup.this, "Registered Successfully \n Please check your email for verification", Toast.LENGTH_SHORT).show();
-                                                 startActivity(new Intent(Signup.this, Signup_MobileNumber_and_Image.class));
+                                                 startActivity(new Intent(Signup.this, Login.class));
                                                  overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                                                  finish();
                                                  register.resetSlider();

@@ -3,7 +3,13 @@ package atlair.edu.crackcomp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -105,33 +112,58 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
             public void onClick(View v) {
                 if (ar.get(position).getOption1().equalsIgnoreCase(ar.get(position).getAns()))
                 {
-                    holder.option1.setBackgroundColor(Color.GREEN);
+                    holder.option1.setBackgroundResource(R.drawable.green_background);
+                    holder.option1.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+
 
                 }
                 else {
-                    holder.option1.setBackgroundColor(Color.RED);
-
+                    holder.option1.setBackgroundResource(R.drawable.red_background);
+                    holder.option1.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.wrong_clakson_sound_effect).start();
                     Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
 
                     if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
                     {
-                        holder.option1.setBackgroundColor(Color.GREEN);
+                        holder.option1.setBackgroundResource(R.drawable.green_background);
+                        holder.option1.setTextColor(Color.WHITE);
                     }
                     if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
                     {
-                        holder.option2.setBackgroundColor(Color.GREEN);
+                        holder.option2.setBackgroundResource(R.drawable.green_background);
+                        holder.option2.setTextColor(Color.WHITE);
                     }
                     if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
                     {
-                        holder.option3.setBackgroundColor(Color.GREEN);
+                        holder.option3.setBackgroundResource(R.drawable.green_background);
+                        holder.option3.setTextColor(Color.WHITE);
                     }
                     if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
                     {
-                        holder.option4.setBackgroundColor(Color.GREEN);
+                        holder.option4.setBackgroundResource(R.drawable.green_background);
+                        holder.option4.setTextColor(Color.WHITE);
                     }
 
                 }
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                          holder.option1.setBackgroundResource(0);
+                          holder.option1.setTextColor(Color.BLACK);
+                        holder.option2.setBackgroundResource(0);
+                        holder.option2.setTextColor(Color.BLACK);
+                        holder.option3.setBackgroundResource(0);
+                        holder.option3.setTextColor(Color.BLACK);
+                        holder.option4.setBackgroundResource(0);
+                        holder.option4.setTextColor(Color.BLACK);
+
+                    }
+                },3000);
             }
         });
 
@@ -140,32 +172,51 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
             public void onClick(View v) {
                 if (ar.get(position).getOption2().equalsIgnoreCase(ar.get(position).getAns()))
                 {
-                    holder.option2.setBackgroundColor(Color.GREEN);
+                    holder.option2.setBackgroundResource(R.drawable.green_background);
+                    holder.option2.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW... \n Right Answer", Toast.LENGTH_SHORT).show();
 
                 }
-                else holder.option2.setBackgroundColor(Color.RED);
-                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+                else {
+                    holder.option2.setBackgroundResource(R.drawable.red_background);
+                    holder.option2.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.wrong_clakson_sound_effect).start();
+                    Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
 
 
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
-                {
-                    holder.option1.setBackgroundColor(Color.GREEN);
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1())) {
+                        holder.option1.setBackgroundResource(R.drawable.green_background);
+                        holder.option1.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
+                        holder.option2.setBackgroundResource(R.drawable.green_background);
+                        holder.option2.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
+                        holder.option3.setBackgroundResource(R.drawable.green_background);
+                        holder.option3.setTextColor(Color.WHITE);}
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
+                        holder.option4.setBackgroundResource(R.drawable.green_background);
+                        holder.option4.setTextColor(Color.WHITE);
+                    }
                 }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
-                {
-                    holder.option2.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
-                {
-                    holder.option3.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
-                {
-                    holder.option4.setBackgroundColor(Color.GREEN);
-                }
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
 
+                        holder.option1.setBackgroundResource(0);
+                        holder.option1.setTextColor(Color.BLACK);
+                        holder.option2.setBackgroundResource(0);
+                        holder.option2.setTextColor(Color.BLACK);
+                        holder.option3.setBackgroundResource(0);
+                        holder.option3.setTextColor(Color.BLACK);
+                        holder.option4.setBackgroundResource(0);
+                        holder.option4.setTextColor(Color.BLACK);
 
+                    }
+                },3000);
             }
         });
         holder. option3.setOnClickListener(new View.OnClickListener() {
@@ -173,31 +224,53 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
             public void onClick(View v) {
                 if (ar.get(position).getOption3().equalsIgnoreCase(ar.get(position).getAns()))
                 {
-                    holder.option3.setBackgroundColor(Color.GREEN);
+                    holder.option3.setBackgroundResource(R.drawable.green_background);
+                    holder.option3.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
 
                 }
-                else holder.option3.setBackgroundColor(Color.RED);
-                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+                else {
+                    holder.option3.setBackgroundResource(R.drawable.red_background);
+                    holder.option3.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.wrong_clakson_sound_effect).start();
+                    Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
 
 
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
-                {
-                    holder.option1.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
-                {
-                    holder.option2.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
-                {
-                    holder.option3.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
-                {
-                    holder.option4.setBackgroundColor(Color.GREEN);
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1())) {
+                        holder.option1.setBackgroundResource(R.drawable.green_background);
+                        holder.option1.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
+                        holder.option2.setBackgroundResource(R.drawable.green_background);
+                        holder.option2.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
+                        holder.option3.setBackgroundResource(R.drawable.green_background);
+                        holder.option3.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
+                        holder.option4.setBackgroundResource(R.drawable.green_background);
+                        holder.option4.setTextColor(Color.WHITE);
+                    }
                 }
 
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        holder.option1.setBackgroundResource(0);
+                        holder.option1.setTextColor(Color.BLACK);
+                        holder.option2.setBackgroundResource(0);
+                        holder.option2.setTextColor(Color.BLACK);
+                        holder.option3.setBackgroundResource(0);
+                        holder.option3.setTextColor(Color.BLACK);
+                        holder.option4.setBackgroundResource(0);
+                        holder.option4.setTextColor(Color.BLACK);
+
+                    }
+                },3000);
             }
         });
         holder. option4.setOnClickListener(new View.OnClickListener() {
@@ -205,30 +278,52 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
             public void onClick(View v) {
                 if (ar.get(position).getOption4().equalsIgnoreCase(ar.get(position).getAns()) )
                 {
-                    holder.option4.setBackgroundColor(Color.GREEN);
+                    holder.option4.setBackgroundResource(R.drawable.green_background);
+                    holder.option4.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
 
                 }
-                else holder.option4.setBackgroundColor(Color.RED);
-                Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
+                else {
+                    holder.option4.setBackgroundResource(R.drawable.red_background);
+                    holder.option4.setTextColor(Color.WHITE);
+                    MediaPlayer.create(con, R.raw.wrong_clakson_sound_effect).start();
+                    Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
 
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1())) {
+                        holder.option1.setBackgroundResource(R.drawable.green_background);
+                        holder.option1.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
+                        holder.option2.setBackgroundResource(R.drawable.green_background);
+                        holder.option2.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
+                        holder.option3.setBackgroundResource(R.drawable.green_background);
+                        holder.option3.setTextColor(Color.WHITE);
+                    }
+                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
+                        holder.option4.setBackgroundResource(R.drawable.green_background);
+                        holder.option4.setTextColor(Color.WHITE);
+                    }
+                }
 
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
-                {
-                    holder.option1.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
-                {
-                    holder.option2.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
-                {
-                    holder.option3.setBackgroundColor(Color.GREEN);
-                }
-                if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
-                {
-                    holder.option4.setBackgroundColor(Color.GREEN);
-                }
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        holder.option1.setBackgroundResource(0);
+                        holder.option1.setTextColor(Color.BLACK);
+                        holder.option2.setBackgroundResource(0);
+                        holder.option2.setTextColor(Color.BLACK);
+                        holder.option3.setBackgroundResource(0);
+                        holder.option3.setTextColor(Color.BLACK);
+                        holder.option4.setBackgroundResource(0);
+                        holder.option4.setTextColor(Color.BLACK);
+
+                    }
+                },3000);
 
             }
         });
@@ -313,19 +408,25 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                 @Override
                 public void onClick(View v) {
 
-                    if (bt.getText().toString().equalsIgnoreCase("Show Answer"))
-                    {
-                        ans.setText(ar.get(getAdapterPosition()).getAns());
-                        ans.setAnimation(AnimationUtils.loadAnimation(con, R.anim.reyclerviewitem_slidefromright));
-                        ans.setVisibility(View.VISIBLE);
-                        bt.setText("Hide Answer");
+                    Bitmap imgBitmap = BitmapFactory.decodeResource(con.getResources(),R.drawable.questionshare);
+                    String imgBitmapPath = MediaStore.Images.Media.insertImage(con.getContentResolver(),imgBitmap,"title"+ System.currentTimeMillis(),null);
+                    Uri imgBitmapUri = Uri.parse(imgBitmapPath);
 
-                    }
-                  else if (bt.getText().toString().equalsIgnoreCase("Hide Answer"))
-                    {
-                        ans.setVisibility(View.GONE);
-                        bt.setText("Show Answer");
-                    }
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    //                shareIntent.setPackage("com.whatsapp");  // for only on whatsapp sharing
+                    shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM,imgBitmapUri);
+                    shareIntent.setType("image/*");
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT," Q :- "+ ar.get(getAdapterPosition()).getQuestion()+"\n" +
+                            "A. " + ar.get(getAdapterPosition()).getOption1() + "\n" +
+                            "B. " + ar.get(getAdapterPosition()).getOption2() + "\n" +
+                            "C. " + ar.get(getAdapterPosition()).getOption3() + "\n" +
+                            "D. " + ar.get(getAdapterPosition()).getOption4() + "\n" +
+                            " Ans :- "+ar.get(getAdapterPosition()).getAns());
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Crack Comp");
+                    con.startActivity(Intent.createChooser(shareIntent, "Share this"));
+
                 }
             });
 
