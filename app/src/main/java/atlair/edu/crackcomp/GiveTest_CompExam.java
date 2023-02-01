@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -68,6 +70,8 @@ public class GiveTest_CompExam extends AppCompatActivity {
     ArrayList<Integer> question_no = new ArrayList<Integer>();
 
     Check_Internet_Status internet_status = new Check_Internet_Status();
+    MediaPlayer mp1,mp2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,9 @@ public class GiveTest_CompExam extends AppCompatActivity {
         {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
+
+        mp1 = MediaPlayer.create(getApplicationContext(), R.raw.applause_8);
+        mp2 = MediaPlayer.create(getApplicationContext(), R.raw.wrong_clakson_sound_effect);
 
 
         //   internet_status.internet_status(GiveTest_CompExam.this, pb);  // generate question from offline so internet is not necessary
@@ -170,7 +177,7 @@ public class GiveTest_CompExam extends AppCompatActivity {
                         else
                         {
                             pb.setVisibility(View.VISIBLE);
-                            internet_status.internet_status(GiveTest_CompExam.this, pb);
+//                            internet_status.internet_status(GiveTest_CompExam.this, pb);     // internet not required
 
                             pre_randomnumber=randomnumber;
 
@@ -200,13 +207,18 @@ public class GiveTest_CompExam extends AppCompatActivity {
 
                                         final UploadQuestion_Bean bean = dataSnapshot.getValue(UploadQuestion_Bean.class);
 
-
                                         tv2.setText(bean.getQuestion());
+                                        tv2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_scale_animation));
 
+                                        bt1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                                        bt2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
+                                        bt3.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                                        bt4.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
                                         bt1.setText(bean.getOption1());
                                         bt2.setText(bean.getOption2());
                                         bt3.setText(bean.getOption3());
                                         bt4.setText(bean.getOption4());
+
                                         pb.setVisibility(View.GONE);
                                         rl.setVisibility(View.VISIBLE);
 
@@ -217,52 +229,52 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                                 if (bt1.getText().toString().equals(bean.getAns())) {
                                                     correct++;
 
-                                                    bt1.setBackgroundColor(Color.GREEN);
-                                                    bt1.setTextColor(Color.parseColor("#000000"));
+                                                    bt1.setBackgroundResource(R.drawable.green_background);
+                                                    mp1.start();
+                                                    bt1.setTextColor(Color.parseColor("#ffffff"));
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-
-                                                            bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt1.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt1.setBackgroundResource(R.drawable.border);
+                                                            bt1.setTextColor(Color.parseColor("#000000"));
 
                                                             tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
 
-
                                                             updateQuestion();
                                                         }
-                                                    }, 1500);
+                                                    }, 4000);
 
 
                                                 } else {
                                                     wrong++;
-                                                    bt1.setBackgroundColor(Color.RED);
-                                                    bt1.setTextColor(Color.parseColor("#000000"));
+                                                    bt1.setBackgroundResource(R.drawable.red_background);
+                                                    bt1.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp2.start();
 
                                                     if (bt2.getText().toString().equals(bean.getAns())) {
-                                                        bt2.setBackgroundColor(Color.GREEN);
-                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setBackgroundResource(R.drawable.green_background);
+                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                        bt3.setBackgroundColor(Color.GREEN);
-                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setBackgroundResource(R.drawable.green_background);
+                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                        bt4.setBackgroundColor(Color.GREEN);
-                                                        bt4.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setBackgroundResource(R.drawable.green_background);
+                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
                                                     }
 
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt1.setBackgroundResource(R.drawable.border);
+                                                            bt2.setBackgroundResource(R.drawable.border);
+                                                            bt3.setBackgroundResource(R.drawable.border);
+                                                            bt4.setBackgroundResource(R.drawable.border);
+                                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                                            bt4.setTextColor(Color.parseColor("#000000"));
                                                             updateQuestion();
                                                         }
                                                     }, 1500);
@@ -276,48 +288,50 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                             public void onClick(View v) {
                                                 if (bt2.getText().toString().equals(bean.getAns())) {
                                                     correct++;
-                                                    bt2.setBackgroundColor(Color.GREEN);
-                                                    bt2.setTextColor(Color.parseColor("#000000"));
+                                                    bt2.setBackgroundResource(R.drawable.green_background);
+                                                    bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp1.start();
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-
-                                                            bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt2.setBackgroundResource(R.drawable.border);
+                                                            bt2.setTextColor(Color.parseColor("#000000"));
                                                             tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                             updateQuestion();
                                                         }
-                                                    }, 1500);
+                                                    }, 4000);
 
 
                                                 } else {
                                                     wrong++;
-                                                    bt2.setBackgroundColor(Color.RED);
+                                                    bt2.setBackgroundResource(R.drawable.red_background);
+                                                    bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp2.start();
 
                                                     if (bt1.getText().toString().equals(bean.getAns())) {
-                                                        bt1.setBackgroundColor(Color.GREEN);
-                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt1.setBackgroundResource(R.drawable.green_background);
+                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                        bt3.setBackgroundColor(Color.GREEN);
-                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setBackgroundResource(R.drawable.green_background);
+                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                        bt4.setBackgroundColor(Color.GREEN);
-                                                        bt4.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setBackgroundResource(R.drawable.green_background);
+                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
                                                     }
 
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt1.setBackgroundResource(R.drawable.border);
+                                                            bt2.setBackgroundResource(R.drawable.border);
+                                                            bt3.setBackgroundResource(R.drawable.border);
+                                                            bt4.setBackgroundResource(R.drawable.border);
+                                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                                            bt4.setTextColor(Color.parseColor("#000000"));
                                                             updateQuestion();
                                                         }
                                                     }, 1500);
@@ -331,50 +345,52 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                             public void onClick(View v) {
                                                 if (bt3.getText().toString().equals(bean.getAns())) {
                                                     correct++;
-                                                    bt3.setBackgroundColor(Color.GREEN);
-                                                    bt3.setTextColor(Color.parseColor("#000000"));
+                                                    bt3.setBackgroundResource(R.drawable.green_background);
+                                                    bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp1.start();
+
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-
-                                                            bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt3.setBackgroundResource(R.drawable.border);
+                                                            bt3.setTextColor(Color.parseColor("#000000"));
 
                                                             tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                             updateQuestion();
                                                         }
-                                                    }, 1500);
+                                                    }, 4000);
 
 
                                                 } else {
                                                     wrong++;
-                                                    bt3.setBackgroundColor(Color.RED);
-                                                    bt3.setTextColor(Color.parseColor("#000000"));
+                                                    bt3.setBackgroundResource(R.drawable.red_background);
+                                                    bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp2.start();
 
                                                     if (bt1.getText().toString().equals(bean.getAns())) {
-                                                        bt1.setBackgroundColor(Color.GREEN);
-                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt1.setBackgroundResource(R.drawable.green_background);
+                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                                        bt2.setBackgroundColor(Color.GREEN);
-                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setBackgroundResource(R.drawable.green_background);
+                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                        bt4.setBackgroundColor(Color.GREEN);
-                                                        bt4.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setBackgroundResource(R.drawable.green_background);
+                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
                                                     }
 
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt1.setBackgroundResource(R.drawable.border);
+                                                            bt2.setBackgroundResource(R.drawable.border);
+                                                            bt3.setBackgroundResource(R.drawable.border);
+                                                            bt4.setBackgroundResource(R.drawable.border);
+                                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                                            bt4.setTextColor(Color.parseColor("#000000"));
                                                             updateQuestion();
                                                         }
                                                     }, 1500);
@@ -388,50 +404,52 @@ public class GiveTest_CompExam extends AppCompatActivity {
                                             public void onClick(View v) {
                                                 if (bt4.getText().toString().equals(bean.getAns())) {
                                                     correct++;
-                                                    bt4.setBackgroundColor(Color.GREEN);
-                                                    bt4.setTextColor(Color.parseColor("#000000"));
+                                                    bt4.setBackgroundResource(R.drawable.green_background);
+                                                    bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp1.start();
+
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-
-                                                            bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt4.setBackgroundResource(R.drawable.border);
+                                                            bt4.setTextColor(Color.parseColor("#000000"));
 
                                                             tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                             updateQuestion();
                                                         }
-                                                    }, 1500);
+                                                    }, 4000);
 
 
                                                 } else {
                                                     wrong++;
-                                                    bt4.setBackgroundColor(Color.RED);
-                                                    bt4.setTextColor(Color.parseColor("#000000"));
+                                                    bt4.setBackgroundResource(R.drawable.red_background);
+                                                    bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                    mp2.start();
 
                                                     if (bt1.getText().toString().equals(bean.getAns())) {
-                                                        bt1.setBackgroundColor(Color.GREEN);
-                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt1.setBackgroundResource(R.drawable.green_background);
+                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                                        bt2.setBackgroundColor(Color.GREEN);
-                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setBackgroundResource(R.drawable.green_background);
+                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
                                                     } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                        bt3.setBackgroundColor(Color.GREEN);
-                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setBackgroundResource(R.drawable.green_background);
+                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
                                                     }
 
                                                     Handler handler = new Handler();
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                            bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                            bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                            bt1.setBackgroundResource(R.drawable.border);
+                                                            bt2.setBackgroundResource(R.drawable.border);
+                                                            bt3.setBackgroundResource(R.drawable.border);
+                                                            bt4.setBackgroundResource(R.drawable.border);
+                                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                                            bt4.setTextColor(Color.parseColor("#000000"));
                                                             updateQuestion();
                                                         }
                                                     }, 1500);
@@ -532,7 +550,12 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
 
 
                             tv2.setText(bean.getQuestion());
+                            tv2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_scale_animation));
 
+                            bt1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                            bt2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
+                            bt3.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                            bt4.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
                             bt1.setText(bean.getOption1());
                             bt2.setText(bean.getOption2());
                             bt3.setText(bean.getOption3());
@@ -547,53 +570,52 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                     if (bt1.getText().toString().equals(bean.getAns())) {
                                         correct++;
 
-                                        bt1.setBackgroundColor(Color.GREEN);
-                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                        bt1.setBackgroundResource(R.drawable.green_background);
+                                        bt1.setTextColor(Color.parseColor("#ffffff"));
+                                        mp1.start();
+
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-
-                                                bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt1.setTextColor(Color.parseColor("#ffffff"));
-
+                                                bt1.setBackgroundResource(R.drawable.border);
+                                                bt1.setTextColor(Color.parseColor("#000000"));
                                                 tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
-
-
 
                                                 updateQuestion();
                                             }
-                                        }, 1500);
+                                        }, 4000);
 
 
                                     } else {
                                         wrong++;
-                                        bt1.setBackgroundColor(Color.RED);
-                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                        bt1.setBackgroundResource(R.drawable.red_background);
+                                        bt1.setTextColor(Color.parseColor("#ffffff"));
+                                        mp2.start();
 
                                         if (bt2.getText().toString().equals(bean.getAns())) {
-                                            bt2.setBackgroundColor(Color.GREEN);
-                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                            bt2.setBackgroundResource(R.drawable.green_background);
+                                            bt2.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                            bt3.setBackgroundColor(Color.GREEN);
-                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                            bt3.setBackgroundResource(R.drawable.green_background);
+                                            bt3.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                            bt4.setBackgroundColor(Color.GREEN);
-                                            bt4.setTextColor(Color.parseColor("#000000"));
+                                            bt4.setBackgroundResource(R.drawable.green_background);
+                                            bt4.setTextColor(Color.parseColor("#ffffff"));
                                         }
 
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                bt1.setBackgroundResource(R.drawable.border);
+                                                bt2.setBackgroundResource(R.drawable.border);
+                                                bt3.setBackgroundResource(R.drawable.border);
+                                                bt4.setBackgroundResource(R.drawable.border);
+                                                bt1.setTextColor(Color.parseColor("#000000"));
+                                                bt2.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setTextColor(Color.parseColor("#000000"));
                                                 updateQuestion();
                                             }
                                         }, 1500);
@@ -607,48 +629,51 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                 public void onClick(View v) {
                                     if (bt2.getText().toString().equals(bean.getAns())) {
                                         correct++;
-                                        bt2.setBackgroundColor(Color.GREEN);
-                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                        bt2.setBackgroundResource(R.drawable.green_background);
+                                        bt2.setTextColor(Color.parseColor("#ffffff"));
+                                        mp1.start();
+
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-
-                                                bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                bt2.setBackgroundResource(R.drawable.border);
+                                                bt2.setTextColor(Color.parseColor("#000000"));
                                                 tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                 updateQuestion();
                                             }
-                                        }, 1500);
+                                        }, 4000);
 
 
                                     } else {
                                         wrong++;
-                                        bt2.setBackgroundColor(Color.RED);
+                                        bt2.setBackgroundResource(R.drawable.red_background);
+                                        bt2.setTextColor(Color.parseColor("#ffffff"));
+                                        mp2.start();
 
                                         if (bt1.getText().toString().equals(bean.getAns())) {
-                                            bt1.setBackgroundColor(Color.GREEN);
-                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                            bt1.setBackgroundResource(R.drawable.green_background);
+                                            bt1.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                            bt3.setBackgroundColor(Color.GREEN);
-                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                            bt3.setBackgroundResource(R.drawable.green_background);
+                                            bt3.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                            bt4.setBackgroundColor(Color.GREEN);
-                                            bt4.setTextColor(Color.parseColor("#000000"));
+                                            bt4.setBackgroundResource(R.drawable.green_background);
+                                            bt4.setTextColor(Color.parseColor("#ffffff"));
                                         }
 
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                bt1.setBackgroundResource(R.drawable.border);
+                                                bt2.setBackgroundResource(R.drawable.border);
+                                                bt3.setBackgroundResource(R.drawable.border);
+                                                bt4.setBackgroundResource(R.drawable.border);
+                                                bt1.setTextColor(Color.parseColor("#000000"));
+                                                bt2.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setTextColor(Color.parseColor("#000000"));
                                                 updateQuestion();
                                             }
                                         }, 1500);
@@ -662,20 +687,21 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                 public void onClick(View v) {
                                     if (bt3.getText().toString().equals(bean.getAns())) {
                                         correct++;
-                                        bt3.setBackgroundColor(Color.GREEN);
-                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                        bt3.setBackgroundResource(R.drawable.green_background);
+                                        bt3.setTextColor(Color.parseColor("#ffffff"));
+                                        mp1.start();
+
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-
-                                                bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                bt3.setBackgroundResource(R.drawable.border);
+                                                bt3.setTextColor(Color.parseColor("#000000"));
 
                                                 tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                 updateQuestion();
                                             }
-                                        }, 1500);
+                                        }, 4000);
 
 
                                     }
@@ -683,32 +709,33 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                     else
                                         {
                                         wrong++;
-                                        bt3.setBackgroundColor(Color.RED);
-                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                        bt3.setBackgroundResource(R.drawable.red_background);
+                                        bt3.setTextColor(Color.parseColor("#ffffff"));
+                                        mp2.start();
 
                                         if (bt1.getText().toString().equals(bean.getAns())) {
-                                            bt1.setBackgroundColor(Color.GREEN);
-                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                            bt1.setBackgroundResource(R.drawable.green_background);
+                                            bt1.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                            bt2.setBackgroundColor(Color.GREEN);
-                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                            bt2.setBackgroundResource(R.drawable.green_background);
+                                            bt2.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                            bt4.setBackgroundColor(Color.GREEN);
-                                            bt4.setTextColor(Color.parseColor("#000000"));
+                                            bt4.setBackgroundResource(R.drawable.green_background);
+                                            bt4.setTextColor(Color.parseColor("#ffffff"));
                                         }
 
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                bt1.setBackgroundResource(R.drawable.border);
+                                                bt2.setBackgroundResource(R.drawable.border);
+                                                bt3.setBackgroundResource(R.drawable.border);
+                                                bt4.setBackgroundResource(R.drawable.border);
+                                                bt1.setTextColor(Color.parseColor("#000000"));
+                                                bt2.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setTextColor(Color.parseColor("#000000"));
                                                 updateQuestion();
                                             }
                                         }, 1500);
@@ -722,50 +749,52 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                 public void onClick(View v) {
                                     if (bt4.getText().toString().equals(bean.getAns())) {
                                         correct++;
-                                        bt4.setBackgroundColor(Color.GREEN);
-                                        bt4.setTextColor(Color.parseColor("#000000"));
+                                        bt4.setBackgroundResource(R.drawable.green_background);
+                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                        mp1.start();
+
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-
-                                                bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                bt4.setBackgroundResource(R.drawable.border);
+                                                bt4.setTextColor(Color.parseColor("#000000"));
 
                                                 tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                 updateQuestion();
                                             }
-                                        }, 1500);
+                                        }, 4000);
 
 
                                     } else {
                                         wrong++;
-                                        bt4.setBackgroundColor(Color.RED);
-                                        bt4.setTextColor(Color.parseColor("#000000"));
+                                        bt4.setBackgroundResource(R.drawable.red_background);
+                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                        mp2.start();
 
                                         if (bt1.getText().toString().equals(bean.getAns())) {
-                                            bt1.setBackgroundColor(Color.GREEN);
-                                            bt1.setTextColor(Color.parseColor("#000000"));
+                                            bt1.setBackgroundResource(R.drawable.green_background);
+                                            bt1.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                            bt2.setBackgroundColor(Color.GREEN);
-                                            bt2.setTextColor(Color.parseColor("#000000"));
+                                            bt2.setBackgroundResource(R.drawable.green_background);
+                                            bt2.setTextColor(Color.parseColor("#ffffff"));
                                         } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                            bt3.setBackgroundColor(Color.GREEN);
-                                            bt3.setTextColor(Color.parseColor("#000000"));
+                                            bt3.setBackgroundResource(R.drawable.green_background);
+                                            bt3.setTextColor(Color.parseColor("#ffffff"));
                                         }
 
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                bt1.setBackgroundResource(R.drawable.border);
+                                                bt2.setBackgroundResource(R.drawable.border);
+                                                bt3.setBackgroundResource(R.drawable.border);
+                                                bt4.setBackgroundResource(R.drawable.border);
+                                                bt1.setTextColor(Color.parseColor("#000000"));
+                                                bt2.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setTextColor(Color.parseColor("#000000"));
                                                 updateQuestion();
                                             }
                                         }, 1500);
@@ -868,7 +897,12 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
 
 
                                     tv2.setText(bean.getQuestion());
+                                    tv2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_scale_animation));
 
+                                    bt1.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                                    bt2.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
+                                    bt3.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left));
+                                    bt4.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_out_left));
                                     bt1.setText(bean.getOption1());
                                     bt2.setText(bean.getOption2());
                                     bt3.setText(bean.getOption3());
@@ -882,54 +916,53 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                         public void onClick(View v) {
                                             if (bt1.getText().toString().equals(bean.getAns())) {
                                                 correct++;
+                                                bt1.setBackgroundResource(R.drawable.green_background);
+                                                bt1.setTextColor(Color.parseColor("#ffffff"));
+                                                mp1.start();
 
-                                                bt1.setBackgroundColor(Color.GREEN);
-                                                bt1.setTextColor(Color.parseColor("#000000"));
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-
-                                                        bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt1.setBackgroundResource(R.drawable.border);
+                                                        bt1.setTextColor(Color.parseColor("#000000"));
 
                                                         tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
 
-
-
                                                         updateQuestion();
                                                     }
-                                                }, 1500);
+                                                }, 4000);
 
 
                                             } else {
                                                 wrong++;
-                                                bt1.setBackgroundColor(Color.RED);
-                                                bt1.setTextColor(Color.parseColor("#000000"));
+                                                bt1.setBackgroundResource(R.drawable.red_background);
+                                                bt1.setTextColor(Color.parseColor("#ffffff"));
+                                                mp2.start();
 
                                                 if (bt2.getText().toString().equals(bean.getAns())) {
-                                                    bt2.setBackgroundColor(Color.GREEN);
-                                                    bt2.setTextColor(Color.parseColor("#000000"));
+                                                    bt2.setBackgroundResource(R.drawable.green_background);
+                                                    bt2.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                    bt3.setBackgroundColor(Color.GREEN);
-                                                    bt3.setTextColor(Color.parseColor("#000000"));
+                                                    bt3.setBackgroundResource(R.drawable.green_background);
+                                                    bt3.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                    bt4.setBackgroundColor(Color.GREEN);
-                                                    bt4.setTextColor(Color.parseColor("#000000"));
+                                                    bt4.setBackgroundResource(R.drawable.green_background);
+                                                    bt4.setTextColor(Color.parseColor("#ffffff"));
                                                 }
 
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt1.setBackgroundResource(R.drawable.border);
+                                                        bt2.setBackgroundResource(R.drawable.border);
+                                                        bt3.setBackgroundResource(R.drawable.border);
+                                                        bt4.setBackgroundResource(R.drawable.border);
+                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setTextColor(Color.parseColor("#000000"));
                                                         updateQuestion();
                                                     }
                                                 }, 1500);
@@ -943,48 +976,51 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                         public void onClick(View v) {
                                             if (bt2.getText().toString().equals(bean.getAns())) {
                                                 correct++;
-                                                bt2.setBackgroundColor(Color.GREEN);
-                                                bt2.setTextColor(Color.parseColor("#000000"));
+                                                bt2.setBackgroundResource(R.drawable.green_background);
+                                                bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                mp1.start();
+
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-
-                                                        bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt2.setBackgroundResource(R.drawable.border);
+                                                        bt2.setTextColor(Color.parseColor("#000000"));
                                                         tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                         updateQuestion();
                                                     }
-                                                }, 1500);
+                                                }, 4000);
 
 
                                             } else {
                                                 wrong++;
-                                                bt2.setBackgroundColor(Color.RED);
+                                                bt2.setBackgroundResource(R.drawable.red_background);
+                                                bt2.setTextColor(Color.parseColor("#ffffff"));
+                                                mp2.start();
 
                                                 if (bt1.getText().toString().equals(bean.getAns())) {
-                                                    bt1.setBackgroundColor(Color.GREEN);
-                                                    bt1.setTextColor(Color.parseColor("#000000"));
+                                                    bt1.setBackgroundResource(R.drawable.green_background);
+                                                    bt1.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                    bt3.setBackgroundColor(Color.GREEN);
-                                                    bt3.setTextColor(Color.parseColor("#000000"));
+                                                    bt3.setBackgroundResource(R.drawable.green_background);
+                                                    bt3.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                    bt4.setBackgroundColor(Color.GREEN);
-                                                    bt4.setTextColor(Color.parseColor("#000000"));
+                                                    bt4.setBackgroundResource(R.drawable.green_background);
+                                                    bt4.setTextColor(Color.parseColor("#ffffff"));
                                                 }
 
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt1.setBackgroundResource(R.drawable.border);
+                                                        bt2.setBackgroundResource(R.drawable.border);
+                                                        bt3.setBackgroundResource(R.drawable.border);
+                                                        bt4.setBackgroundResource(R.drawable.border);
+                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setTextColor(Color.parseColor("#000000"));
                                                         updateQuestion();
                                                     }
                                                 }, 1500);
@@ -998,20 +1034,21 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                         public void onClick(View v) {
                                             if (bt3.getText().toString().equals(bean.getAns())) {
                                                 correct++;
-                                                bt3.setBackgroundColor(Color.GREEN);
-                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setBackgroundResource(R.drawable.green_background);
+                                                bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                mp1.start();
+
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-
-                                                        bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt3.setBackgroundResource(R.drawable.border);
+                                                        bt3.setTextColor(Color.parseColor("#000000"));
 
                                                         tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                         updateQuestion();
                                                     }
-                                                }, 1500);
+                                                }, 4000);
 
 
                                             }
@@ -1019,32 +1056,33 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                             else
                                             {
                                                 wrong++;
-                                                bt3.setBackgroundColor(Color.RED);
-                                                bt3.setTextColor(Color.parseColor("#000000"));
+                                                bt3.setBackgroundResource(R.drawable.red_background);
+                                                bt3.setTextColor(Color.parseColor("#ffffff"));
+                                                mp2.start();
 
                                                 if (bt1.getText().toString().equals(bean.getAns())) {
-                                                    bt1.setBackgroundColor(Color.GREEN);
-                                                    bt1.setTextColor(Color.parseColor("#000000"));
+                                                    bt1.setBackgroundResource(R.drawable.green_background);
+                                                    bt1.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                                    bt2.setBackgroundColor(Color.GREEN);
-                                                    bt2.setTextColor(Color.parseColor("#000000"));
+                                                    bt2.setBackgroundResource(R.drawable.green_background);
+                                                    bt2.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt4.getText().toString().equals(bean.getAns())) {
-                                                    bt4.setBackgroundColor(Color.GREEN);
-                                                    bt4.setTextColor(Color.parseColor("#000000"));
+                                                    bt4.setBackgroundResource(R.drawable.green_background);
+                                                    bt4.setTextColor(Color.parseColor("#ffffff"));
                                                 }
 
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt1.setBackgroundResource(R.drawable.border);
+                                                        bt2.setBackgroundResource(R.drawable.border);
+                                                        bt3.setBackgroundResource(R.drawable.border);
+                                                        bt4.setBackgroundResource(R.drawable.border);
+                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setTextColor(Color.parseColor("#000000"));
                                                         updateQuestion();
                                                     }
                                                 }, 1500);
@@ -1058,50 +1096,52 @@ else if (compmain.equalsIgnoreCase("Computer Language"))
                                         public void onClick(View v) {
                                             if (bt4.getText().toString().equals(bean.getAns())) {
                                                 correct++;
-                                                bt4.setBackgroundColor(Color.GREEN);
-                                                bt4.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setBackgroundResource(R.drawable.green_background);
+                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                mp1.start();
+
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-
-                                                        bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt4.setBackgroundResource(R.drawable.border);
+                                                        bt4.setTextColor(Color.parseColor("#000000"));
 
                                                         tv1.setText(Integer.toString(correct) + "/" + Integer.toString(total));
                                                         updateQuestion();
                                                     }
-                                                }, 1500);
+                                                }, 4000);
 
 
                                             } else {
                                                 wrong++;
-                                                bt4.setBackgroundColor(Color.RED);
-                                                bt4.setTextColor(Color.parseColor("#000000"));
+                                                bt4.setBackgroundResource(R.drawable.red_background);
+                                                bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                mp2.start();
 
                                                 if (bt1.getText().toString().equals(bean.getAns())) {
-                                                    bt1.setBackgroundColor(Color.GREEN);
-                                                    bt1.setTextColor(Color.parseColor("#000000"));
+                                                    bt1.setBackgroundResource(R.drawable.green_background);
+                                                    bt1.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt2.getText().toString().equals(bean.getAns())) {
-                                                    bt2.setBackgroundColor(Color.GREEN);
-                                                    bt2.setTextColor(Color.parseColor("#000000"));
+                                                    bt2.setBackgroundResource(R.drawable.green_background);
+                                                    bt2.setTextColor(Color.parseColor("#ffffff"));
                                                 } else if (bt3.getText().toString().equals(bean.getAns())) {
-                                                    bt3.setBackgroundColor(Color.GREEN);
-                                                    bt3.setTextColor(Color.parseColor("#000000"));
+                                                    bt3.setBackgroundResource(R.drawable.green_background);
+                                                    bt3.setTextColor(Color.parseColor("#ffffff"));
                                                 }
 
                                                 Handler handler = new Handler();
                                                 handler.postDelayed(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        bt1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt3.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt4.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                                                        bt1.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt2.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt3.setTextColor(Color.parseColor("#ffffff"));
-                                                        bt4.setTextColor(Color.parseColor("#ffffff"));
+                                                        bt1.setBackgroundResource(R.drawable.border);
+                                                        bt2.setBackgroundResource(R.drawable.border);
+                                                        bt3.setBackgroundResource(R.drawable.border);
+                                                        bt4.setBackgroundResource(R.drawable.border);
+                                                        bt1.setTextColor(Color.parseColor("#000000"));
+                                                        bt2.setTextColor(Color.parseColor("#000000"));
+                                                        bt3.setTextColor(Color.parseColor("#000000"));
+                                                        bt4.setTextColor(Color.parseColor("#000000"));
                                                         updateQuestion();
                                                     }
                                                 }, 1500);

@@ -1,5 +1,6 @@
 package atlair.edu.crackcomp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -68,7 +69,7 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final Myinner holder, final int position) {
+    public void onBindViewHolder(@NonNull final Myinner holder, @SuppressLint("RecyclerView") final int position) {
 
         if(ar.get(position).getImgurl().equalsIgnoreCase("no image"))
         {
@@ -116,7 +117,16 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                     holder.option1.setTextColor(Color.WHITE);
                     MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            holder.option1.setBackgroundResource(0);
+                            holder.option1.setTextColor(Color.BLACK);
+
+                        }
+                    },4000);
 
                 }
                 else {
@@ -125,45 +135,43 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                     MediaPlayer.create(con, R.raw.wrong_clakson_sound_effect).start();
                     Toast.makeText(con, "Sorry... \n Wrong Answer", Toast.LENGTH_SHORT).show();
 
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption1()))
-                    {
-                        holder.option1.setBackgroundResource(R.drawable.green_background);
-                        holder.option1.setTextColor(Color.WHITE);
-                    }
+
                     if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2()))
                     {
                         holder.option2.setBackgroundResource(R.drawable.green_background);
                         holder.option2.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
+                   else if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3()))
                     {
                         holder.option3.setBackgroundResource(R.drawable.green_background);
                         holder.option3.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4()))
+                    else
                     {
                         holder.option4.setBackgroundResource(R.drawable.green_background);
                         holder.option4.setTextColor(Color.WHITE);
                     }
 
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            holder.option1.setBackgroundResource(0);
+                            holder.option1.setTextColor(Color.BLACK);
+                            holder.option2.setBackgroundResource(0);
+                            holder.option2.setTextColor(Color.BLACK);
+                            holder.option3.setBackgroundResource(0);
+                            holder.option3.setTextColor(Color.BLACK);
+                            holder.option4.setBackgroundResource(0);
+                            holder.option4.setTextColor(Color.BLACK);
+
+                        }
+                    },1300);
+
                 }
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
 
-                          holder.option1.setBackgroundResource(0);
-                          holder.option1.setTextColor(Color.BLACK);
-                        holder.option2.setBackgroundResource(0);
-                        holder.option2.setTextColor(Color.BLACK);
-                        holder.option3.setBackgroundResource(0);
-                        holder.option3.setTextColor(Color.BLACK);
-                        holder.option4.setBackgroundResource(0);
-                        holder.option4.setTextColor(Color.BLACK);
-
-                    }
-                },3000);
             }
         });
 
@@ -177,6 +185,17 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                     MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW... \n Right Answer", Toast.LENGTH_SHORT).show();
 
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            holder.option2.setBackgroundResource(0);
+                            holder.option2.setTextColor(Color.BLACK);
+
+                        }
+                    },4000);
+
                 }
                 else {
                     holder.option2.setBackgroundResource(R.drawable.red_background);
@@ -189,34 +208,36 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                         holder.option1.setBackgroundResource(R.drawable.green_background);
                         holder.option1.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
-                        holder.option2.setBackgroundResource(R.drawable.green_background);
-                        holder.option2.setTextColor(Color.WHITE);
-                    }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
+
+
+                    else if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
                         holder.option3.setBackgroundResource(R.drawable.green_background);
-                        holder.option3.setTextColor(Color.WHITE);}
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
+                        holder.option3.setTextColor(Color.WHITE);
+                    }
+                    else  {
                         holder.option4.setBackgroundResource(R.drawable.green_background);
                         holder.option4.setTextColor(Color.WHITE);
                     }
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            holder.option1.setBackgroundResource(0);
+                            holder.option1.setTextColor(Color.BLACK);
+                            holder.option2.setBackgroundResource(0);
+                            holder.option2.setTextColor(Color.BLACK);
+                            holder.option3.setBackgroundResource(0);
+                            holder.option3.setTextColor(Color.BLACK);
+                            holder.option4.setBackgroundResource(0);
+                            holder.option4.setTextColor(Color.BLACK);
+
+                        }
+                    },1300);
+
                 }
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
 
-                        holder.option1.setBackgroundResource(0);
-                        holder.option1.setTextColor(Color.BLACK);
-                        holder.option2.setBackgroundResource(0);
-                        holder.option2.setTextColor(Color.BLACK);
-                        holder.option3.setBackgroundResource(0);
-                        holder.option3.setTextColor(Color.BLACK);
-                        holder.option4.setBackgroundResource(0);
-                        holder.option4.setTextColor(Color.BLACK);
-
-                    }
-                },3000);
             }
         });
         holder. option3.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +249,17 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                     holder.option3.setTextColor(Color.WHITE);
                     MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            holder.option3.setBackgroundResource(0);
+                            holder.option3.setTextColor(Color.BLACK);
+
+                        }
+                    },4000);
 
                 }
                 else {
@@ -241,36 +273,35 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                         holder.option1.setBackgroundResource(R.drawable.green_background);
                         holder.option1.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
+                   else if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
                         holder.option2.setBackgroundResource(R.drawable.green_background);
                         holder.option2.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
-                        holder.option3.setBackgroundResource(R.drawable.green_background);
-                        holder.option3.setTextColor(Color.WHITE);
-                    }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
+
+                    else  {
                         holder.option4.setBackgroundResource(R.drawable.green_background);
                         holder.option4.setTextColor(Color.WHITE);
                     }
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            holder.option1.setBackgroundResource(0);
+                            holder.option1.setTextColor(Color.BLACK);
+                            holder.option2.setBackgroundResource(0);
+                            holder.option2.setTextColor(Color.BLACK);
+                            holder.option3.setBackgroundResource(0);
+                            holder.option3.setTextColor(Color.BLACK);
+                            holder.option4.setBackgroundResource(0);
+                            holder.option4.setTextColor(Color.BLACK);
+
+                        }
+                    },1300);
+
                 }
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        holder.option1.setBackgroundResource(0);
-                        holder.option1.setTextColor(Color.BLACK);
-                        holder.option2.setBackgroundResource(0);
-                        holder.option2.setTextColor(Color.BLACK);
-                        holder.option3.setBackgroundResource(0);
-                        holder.option3.setTextColor(Color.BLACK);
-                        holder.option4.setBackgroundResource(0);
-                        holder.option4.setTextColor(Color.BLACK);
-
-                    }
-                },3000);
             }
         });
         holder. option4.setOnClickListener(new View.OnClickListener() {
@@ -283,6 +314,16 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                     MediaPlayer.create(con, R.raw.applause_8).start();
                     Toast.makeText(con, "WOW...\n Right Answer", Toast.LENGTH_SHORT).show();
 
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.option4.setBackgroundResource(0);
+                            holder.option4.setTextColor(Color.BLACK);
+
+                        }
+                    },4000);
+
                 }
                 else {
                     holder.option4.setBackgroundResource(R.drawable.red_background);
@@ -294,36 +335,33 @@ public class Main_activity_recyclerviewAdapter extends RecyclerView.Adapter<Main
                         holder.option1.setBackgroundResource(R.drawable.green_background);
                         holder.option1.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
+                   else if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption2())) {
                         holder.option2.setBackgroundResource(R.drawable.green_background);
                         holder.option2.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption3())) {
+                     else  {
                         holder.option3.setBackgroundResource(R.drawable.green_background);
                         holder.option3.setTextColor(Color.WHITE);
                     }
-                    if (ar.get(position).getAns().equalsIgnoreCase(ar.get(position).getOption4())) {
-                        holder.option4.setBackgroundResource(R.drawable.green_background);
-                        holder.option4.setTextColor(Color.WHITE);
-                    }
-                }
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        holder.option1.setBackgroundResource(0);
-                        holder.option1.setTextColor(Color.BLACK);
-                        holder.option2.setBackgroundResource(0);
-                        holder.option2.setTextColor(Color.BLACK);
-                        holder.option3.setBackgroundResource(0);
-                        holder.option3.setTextColor(Color.BLACK);
-                        holder.option4.setBackgroundResource(0);
-                        holder.option4.setTextColor(Color.BLACK);
+                            holder.option1.setBackgroundResource(0);
+                            holder.option1.setTextColor(Color.BLACK);
+                            holder.option2.setBackgroundResource(0);
+                            holder.option2.setTextColor(Color.BLACK);
+                            holder.option3.setBackgroundResource(0);
+                            holder.option3.setTextColor(Color.BLACK);
+                            holder.option4.setBackgroundResource(0);
+                            holder.option4.setTextColor(Color.BLACK);
+
+                        }
+                    },1300);
 
                     }
-                },3000);
 
             }
         });

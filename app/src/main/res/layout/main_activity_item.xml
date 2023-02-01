@@ -148,7 +148,8 @@
                 android:layout_below="@id/main_activity_item_option4"
                 android:id="@+id/main_activity_item_view"
                 android:background="#BFBDBD"
-                android:layout_marginHorizontal="5dp"/>
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="5dp"/>
 
             <Button
                 android:layout_width="wrap_content"
